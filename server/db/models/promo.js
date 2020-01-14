@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const promo = db.define('promo', {
+const Promo = db.define('promo', {
   code: {
     type: Sequelize.STRING,
     allowNull: false
@@ -20,4 +20,4 @@ const promo = db.define('promo', {
   }
 })
 
-module.exports = promo
+module.exports = Promo
