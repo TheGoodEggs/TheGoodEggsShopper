@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {Product, Category} = require('../db/models')
 module.exports = router
 
+// make sure only admins can add/update and delete
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
