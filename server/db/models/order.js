@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const order = db.define('order', {
+const Order = db.define('order', {
   wishlist: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
@@ -18,13 +18,11 @@ const order = db.define('order', {
     type: Sequelize.STRING
   },
   shippingAddress: {
-    type: Sequelize.STRING,
-    allowNull: false
+    type: Sequelize.STRING
   },
   purchasedTotal: {
-    type: Sequelize.FLOAT(10, 2),
-    allowNull: false
+    type: Sequelize.DECIMAL(10, 2)
   }
 })
 
-module.exports = order
+module.exports = Order
