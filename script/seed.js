@@ -15,100 +15,171 @@ async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
-  const Product1 = await Product.build({
-    name: 'egg',
-    price: 10.23,
-    description: 'The most eggy of them all',
-    image:
-      'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
-    stock: 23,
-    origin: 'USA',
-    categoryId: 1
-  })
-  const Category1 = await Category.build({
-    type: 'Fantasy'
-  })
-  const Category2 = await Category.build({
-    type: 'Edible'
-  })
-  const Promo1 = await Promo.build({
-    code: 'EggShopper1',
-    startDate: new Date(2020, 1, 3),
-    endDate: new Date(2020, 2, 5),
-    discount: 0.1
-  })
-  const Promo2 = await Promo.build({
-    code: 'EggShopper2',
-    startDate: new Date(2020, 4, 5),
-    endDate: new Date(2020, 6, 7),
-    discount: 0.2
-  })
+  const Categories = await Promise.all([
+    Category.create({
+      type: 'Fantasy'
+    }),
+    Category.create({
+      type: 'Edible'
+    })
+  ])
 
-  const Payment1 = await Payment.build({
-    type: 'Chase'
-  })
+  const Products = await Promise.all([
+    Product.create({
+      name: 'egg',
+      price: 10.23,
+      description: 'The most eggy of them all.',
+      image:
+        'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
+      stock: 23,
+      origin: 'USA',
+      categoryId: 2
+    }),
+    Product.create({
+      name: 'Humpty Dumpty',
+      price: 234.99,
+      description: 'Rest assured, this eggs has not had a great fall. ',
+      image:
+        'https://www.thevintagenews.com/wp-content/uploads/2018/02/humpty_dumpty.jpg',
+      stock: 5,
+      origin: 'UK',
+      categoryId: 1
+    }),
+    Product.create({
+      name: 'Gudetama',
+      price: '.99',
+      description: 'The laziest egg there is.',
+      image:
+        'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
+      stock: 88,
+      origin: 'Japan',
+      categoryId: 1
+    }),
+    Product.create({
+      name: 'Kinder Surprise',
+      price: 5,
+      description: 'A surprise that might kill you.',
+      image:
+        'https://www.sltrib.com/resizer/uO0oB5WHrEjnutm_xg5hmZJfUpQ=/970x0/filters:quality(100)/arc-anglerfish-arc2-prod-sltrib.s3.amazonaws.com/public/LNXMEMHN2BEFHE53JTBS4FRFCE.jpg',
+      stock: 33,
+      origin: 'UK',
+      categoryId: 2
+    }),
+    Product.create({
+      name: 'Unicorn Egg',
+      price: 5000,
+      description: 'A Unicorn of an egg...',
+      image: 'https://i.ytimg.com/vi/KPclvLGx99w/maxresdefault.jpg',
+      stock: 3,
+      origin: 'Equestria',
+      categoryId: 1
+    }),
+    Product.create({
+      name: 'Platypus Egg',
+      price: 55,
+      description: 'The only mammal that lays an egg.',
+      image:
+        'https://qph.fs.quoracdn.net/main-qimg-16bedf49b82147889b1d80bacb310191.webp',
+      stock: 44,
+      origin: 'Australia',
+      categoryId: 2
+    }),
+    Product.create({
+      name: "Yoshi's Egg",
+      price: 1337,
+      description: 'Even you can be mario.',
+      image:
+        'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
+      stock: 2,
+      origin: 'Mushroom Kingdom',
+      categoryId: 1
+    }),
+    Product.create({
+      name: 'Gold Faberge Egg',
+      price: 9999,
+      description: 'Will provide for my grandkids college fund',
+      image:
+        'https://www.religiousitalianart.com/wp-content/uploads/2019/01/faberge-egg-gold.jpg',
+      stock: 1,
+      origin: 'USA',
+      categoryId: 1
+    })
+  ])
 
-  const Payment2 = await Payment.build({
-    type: 'Paypal'
-  })
+  const Promos = await Promise.all([
+    Promo.create({
+      code: 'EggShopper1',
+      startDate: new Date(2020, 1, 3),
+      endDate: new Date(2020, 2, 5),
+      discount: 0.1
+    }),
+    Promo.create({
+      code: 'EggShopper2',
+      startDate: new Date(2020, 4, 5),
+      endDate: new Date(2020, 6, 7),
+      discount: 0.2
+    })
+  ])
 
-  const User1 = await User.build({
-    firstName: 'Adam',
-    lastName: 'Mak',
-    email: 'sdf@email.com',
-    password: 'asdfdsf',
-    address: '12414 street',
-    phone: '(347) 997 9900',
-    admin: true
-  })
+  const Payments = await Promise.all([
+    Payment.create({
+      type: 'Chase'
+    }),
+    Payment.create({
+      type: 'Paypal'
+    })
+  ])
 
-  const User2 = await User.build({
-    firstName: 'noAdmin',
-    lastName: 'None',
-    email: 'noadmin@email.com',
-    password: 'dfasdf',
-    address: 'street street',
-    phone: '134-212-1222',
-    admin: false
-  })
-  const Order1 = await Order.build({
-    wishlist: false,
-    purchasedTotal: 43.23
-  })
-  const Order2 = await Order.build({
-    wishlist: false,
-    purchaseDate: new Date(2020, 1, 1),
-    shipped: true,
-    tracking: '123123TrackingInfo1234124',
-    shippingAddress: 'fullstack',
-    purchasedTotal: 43.23,
-    promoId: 1,
-    paymentId: 1,
-    userId: 1
-  })
-  const Order3 = await Order.build({
-    wishlist: true
-  })
+  const Users = await Promise.all([
+    User.create({
+      firstName: 'Adam',
+      lastName: 'Mak',
+      email: 'sdf@email.com',
+      password: 'asdfdsf',
+      address: '12414 street',
+      phone: '(347) 997 9900',
+      admin: true
+    }),
+    User.create({
+      firstName: 'noAdmin',
+      lastName: 'None',
+      email: 'noadmin@email.com',
+      password: 'dfasdf',
+      address: 'street street',
+      phone: '134-212-1222',
+      admin: false
+    })
+  ])
 
-  const OrderProducts1 = await OrderProducts.build({
-    quantity: 20,
-    orderId: 1,
-    productId: 1
-  })
+  const Orders = await Promise.all([
+    Order.create({
+      wishlist: false,
+      purchasedTotal: 43.23
+    }),
+    Order.create({
+      wishlist: false,
+      purchaseDate: new Date(2020, 1, 1),
+      shipped: true,
+      tracking: '123123TrackingInfo1234124',
+      shippingAddress: 'fullstack',
+      purchasedTotal: 43.23,
+      promoId: 1,
+      paymentId: 1,
+      userId: 1
+    }),
+    Order.create({
+      wishlist: true
+    })
+  ])
 
-  await User1.save()
-  await User2.save()
-  await Category1.save()
-  await Category2.save()
-  await Product1.save()
-  await Promo1.save()
-  await Payment1.save()
-  await Payment2.save()
-  await Promo2.save()
-  await Order1.save()
-  await Order2.save()
-  await Order3.save()
-  await OrderProducts1.save()
+  const OrdersProducts = await Promise.all([
+    OrderProducts.create({
+      quantity: 20,
+      orderId: 1,
+      productId: 1
+    })
+  ])
+
   console.log(`seeded $`)
   console.log(`seeded successfully`)
 }
