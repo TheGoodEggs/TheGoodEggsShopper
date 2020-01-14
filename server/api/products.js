@@ -2,7 +2,6 @@ const router = require('express').Router()
 const {Product, Category} = require('../db/models')
 module.exports = router
 
-// make sure only admins can add/update and delete
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({
@@ -33,6 +32,20 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
+// router.get('/?type=', async (req, res, next) => {
+//   try {
+//     const productCat = await Product.findAll({
+//         where: {
+//             category: ???
+//         }
+//     })
+//     res.json(productCat)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+// make sure only admins can add/update and delete
 // do we want to Admin to update the product? What do we want to update if we do?
 
 router.delete('/:productId', async (req, res, next) => {
@@ -53,13 +66,3 @@ router.delete('/:productId', async (req, res, next) => {
     next(err)
   }
 })
-
-// Category rout!!!
-// router.get('/?type=', async (req, res, next) => {
-//   try {
-//     const productCat = await Product.findAll()
-//     res.json(productCat)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
