@@ -8,7 +8,7 @@ const Product = db.define('product', {
   },
 
   price: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   description: {
@@ -20,7 +20,7 @@ const Product = db.define('product', {
     allowNull: false
   },
   stock: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   Origin: {
