@@ -12,11 +12,11 @@ module.exports = router
  * these secrets that you only share with your team - it should NOT be tracked
  * by git! In this case, you may use a file called `secrets.js`, which will
  * set these environment variables like so:
- *
- * process.env.GOOGLE_CLIENT_ID = 'your google client id'
- * process.env.GOOGLE_CLIENT_SECRET = 'your google client secret'
- * process.env.GOOGLE_CALLBACK = '/your/google/callback'
  */
+
+process.env.GOOGLE_CLIENT_ID = 'your google client id'
+process.env.GOOGLE_CLIENT_SECRET = 'your google client secret'
+process.env.GOOGLE_CALLBACK = '/your/google/callback'
 
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   console.log('Google client ID / secret not found. Skipping Google OAuth.')
@@ -30,6 +30,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   const strategy = new GoogleStrategy(
     googleConfig,
     (token, refreshToken, profile, done) => {
+      // <<-verification callback is second argument
       const googleId = profile.id
       const email = profile.emails[0].value
       const imgUrl = profile.photos[0].value
@@ -48,10 +49,13 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
 
   passport.use(strategy)
 
+  //route that users hit when they click "Sign in with Google"
   router.get(
     '/',
     passport.authenticate('google', {scope: ['email', 'profile']})
   )
+
+  //route that the Provider sends the user back to (along with the temporary auth token) after they "sign the contract"
 
   router.get(
     '/callback',
