@@ -3,15 +3,31 @@ const {Product, Category} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
+  console.log('REQ DOT QUERY ID ====> ', req.query.categoryId)
+  let catId = req.query.categoryId
   try {
-    const products = await Product.findAll({
-      include: [
-        {
-          model: Category
+    if (catId === undefined) {
+      const products = await Product.findAll({
+        include: [
+          {
+            model: Category
+          }
+        ]
+      })
+      res.json(products)
+    } else {
+      const products = await Product.findAll({
+        include: [
+          {
+            model: Category
+          }
+        ],
+        where: {
+          categoryId: catId
         }
-      ]
-    })
-    res.json(products)
+      })
+      res.json(products)
+    }
   } catch (err) {
     next(err)
   }
@@ -19,7 +35,7 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:productId', async (req, res, next) => {
   try {
-    const singleProduct = await Product.findById(req.params.productId, {
+    const singleProduct = await Product.findByPk(req.params.productId, {
       include: [
         {
           model: Category
@@ -32,21 +48,10 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-// router.get('/?type=', async (req, res, next) => {
-//   try {
-//     const productCat = await Product.findAll({
-//         where: {
-//             category: ???
-//         }
-//     })
-//     res.json(productCat)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
 // make sure only admins can add/update and delete
 // do we want to Admin to update the product? What do we want to update if we do?
+
+// update and add also!
 
 router.delete('/:productId', async (req, res, next) => {
   try {
