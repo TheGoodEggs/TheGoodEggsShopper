@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Category = db.define('category', {
+const Payment = db.define('payment', {
   type: {
     type: Sequelize.STRING,
     allowNull: false
   }
 })
 
-module.exports = Category
+module.exports = Payment

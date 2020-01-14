@@ -1,9 +1,25 @@
 const User = require('./user')
 const Product = require('./product')
 const Category = require('./category')
+const Order = require('./order')
+const Promo = require('./promo')
+const Payment = require('./payment')
+const OrderProducts = require('./orderProducts')
 
 Product.belongsTo(Category)
 Category.hasMany(Product)
+
+Order.belongsToMany(Product, {through: OrderProducts, as: 'productId'})
+Product.belongsToMany(Order, {through: OrderProducts, as: 'orderId'})
+
+Promo.hasMany(Order)
+Order.belongsTo(Promo)
+
+Payment.hasMany(Order)
+Order.belongsTo(Payment)
+
+User.hasMany(Order)
+Order.belongsTo(User)
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -21,5 +37,9 @@ Category.hasMany(Product)
 module.exports = {
   User,
   Product,
-  Category
+  Category,
+  Order,
+  Promo,
+  Payment,
+  OrderProducts
 }

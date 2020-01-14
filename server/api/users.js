@@ -18,6 +18,19 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const singleUser = await User.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    res.send(singleUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //add user
 router.post('/', async (req, res, next) => {
   try {
