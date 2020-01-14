@@ -14,7 +14,8 @@ Order.hasOne(Promo)
 Promo.hasMany(Order)
 Payment.hasMany(Order)
 Order.hasOne(Payment)
-
+User.hasMany(Order)
+Order.hasOne(User)
 
 
 /**

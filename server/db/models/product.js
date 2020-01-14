@@ -6,7 +6,6 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     allowNull: false
   },
-
   price: {
     type: Sequelize.DECIMAL(10, 2),
     allowNull: false
@@ -23,7 +22,7 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  Origin: {
+  origin: {
     type: Sequelize.STRING,
     allowNull: false
   }
