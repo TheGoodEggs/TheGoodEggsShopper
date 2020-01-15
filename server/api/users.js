@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order, OrderProducts} = require('../db/models')
 module.exports = router
 
 //already mounted on /users
@@ -26,6 +26,66 @@ router.get('/:id', async (req, res, next) => {
       }
     })
     res.send(singleUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id/orders', async (req, res, next) => {
+  try {
+    const allOrders = await Order.findAll({
+      where: {
+        userId: req.params.id
+      }
+    })
+    res.json(allOrders)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/:id/orders', async (req, res, next) => {
+  try {
+    const currentOrder = await Order.findCurrentOrder(req.params.id)
+    const addedOrder = await OrderProducts.create({
+      orderId: currentOrder[0].id,
+      quantity: req.body.quantity,
+      productId: req.body.productId
+    })
+    res.json(addedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id/orders', async (req, res, next) => {
+  try {
+    const currentOrder = await Order.findCurrentOrder(req.params.id)
+    const changedOrder = await OrderProducts.update(
+      {quantity: req.body.quantity},
+      {
+        where: {
+          orderId: currentOrder[0].id,
+          productId: req.body.productId
+        }
+      }
+    )
+    res.json(changedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id/orders', async (req, res, next) => {
+  try {
+    const currentOrder = await Order.findCurrentOrder(req.params.id)
+    const changedOrder = await OrderProducts.destroy({
+      where: {
+        orderId: currentOrder[0].id,
+        productId: req.body.productId
+      }
+    })
+    res.json(changedOrder)
   } catch (error) {
     next(error)
   }

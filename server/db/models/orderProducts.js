@@ -5,6 +5,10 @@ const OrderProducts = db.define('order-products', {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  total: {
+    type: Sequelize.INTEGER,
+    defaultValue: null
   }
 })
 
