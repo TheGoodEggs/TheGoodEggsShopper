@@ -5,7 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const ALL_PRODUCTS = 'ALL_PRODUCTS'
-// const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
+const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 // const NEW_PRODUCT = 'NEW_PRODUCT'
 // const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 // const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
@@ -24,10 +24,10 @@ const allProducts = products => ({
   type: ALL_PRODUCTS,
   products
 })
-// const singleProduct = product => ({
-//   type: SINGLE_PRODUCT,
-//   product
-// })
+const singleProduct = product => ({
+  type: SINGLE_PRODUCT,
+  product
+})
 // const newProduct = product => ({
 //   type: NEW_PRODUCT,
 //   product
@@ -53,14 +53,14 @@ export const allProductsThunk = () => async dispatch => {
   }
 }
 
-// export const singleProductThunk = productId => async dispatch => {
-//   try {
-//     const {data} = await axios.get(`/api/products/${productId}`)
-//     dispatch(singleProduct(data))
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
+export const singleProductThunk = productId => async dispatch => {
+  try {
+    const {data} = await axios.get(`/api/products/${productId}`)
+    dispatch(singleProduct(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 // export const newProductThunk = info => async dispatch => {
 //   try {
@@ -96,8 +96,8 @@ export default function(state = [], action) {
   switch (action.type) {
     case ALL_PRODUCTS:
       return action.products
-    // case REMOVE_USER:
-    //   return
+    case SINGLE_PRODUCT:
+      return [...state, action.product]
     default:
       return state
   }
