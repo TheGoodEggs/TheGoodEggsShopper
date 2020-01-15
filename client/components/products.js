@@ -14,6 +14,7 @@ export default class AllProducts extends Component {
               <img src={product.image} />
               <h3>{product.name}</h3>
               <h4>{product.price}</h4>
+              <h4>{product.origin}</h4>
             </div>
           )
         })}
