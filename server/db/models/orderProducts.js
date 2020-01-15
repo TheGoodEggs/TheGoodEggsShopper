@@ -7,7 +7,7 @@ const OrderProducts = db.define('order-products', {
     allowNull: false
   },
   total: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     defaultValue: null
   }
 })

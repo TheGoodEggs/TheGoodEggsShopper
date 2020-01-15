@@ -2,13 +2,8 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  wishlist: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  },
   purchaseDate: {
-    type: Sequelize.DATE,
-    defaultValue: null
+    type: Sequelize.DATE
   },
   shipped: {
     type: Sequelize.BOOLEAN,
@@ -21,17 +16,18 @@ const Order = db.define('order', {
     type: Sequelize.STRING
   },
   purchasedTotal: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.INTEGER
   }
 })
 
-Order.findCurrentOrder = function(userId) {
-  return this.findAll({
+Order.findCurrentOrder = async function(userId) {
+  const foundOrder = await this.findAll({
     where: {
-      id: userId,
+      userId: userId,
       shipped: false
     }
   })
+  return foundOrder
 }
 
 module.exports = Order

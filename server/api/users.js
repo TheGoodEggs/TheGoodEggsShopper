@@ -46,7 +46,7 @@ router.get('/:id/orders', async (req, res, next) => {
 
 router.post('/:id/orders', async (req, res, next) => {
   try {
-    const currentOrder = await Order.findCurrentOrder(req.user.id)
+    const currentOrder = await Order.findCurrentOrder(req.params.id)
     const addedOrder = await OrderProducts.create({
       orderId: currentOrder[0].id,
       quantity: req.body.quantity,

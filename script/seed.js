@@ -8,7 +8,8 @@ const {
   Promo,
   Payment,
   User,
-  OrderProducts
+  OrderProducts,
+  Wishlist
 } = require('../server/db/models')
 
 async function seed() {
@@ -27,7 +28,7 @@ async function seed() {
   const Products = await Promise.all([
     Product.create({
       name: 'egg',
-      price: 10.23,
+      price: 1023,
       description: 'The most eggy of them all.',
       image:
         'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
@@ -37,7 +38,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Humpty Dumpty',
-      price: 234.99,
+      price: 23499,
       description: 'Rest assured, this eggs has not had a great fall. ',
       image:
         'https://www.thevintagenews.com/wp-content/uploads/2018/02/humpty_dumpty.jpg',
@@ -47,7 +48,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Gudetama',
-      price: '.99',
+      price: 99,
       description: 'The laziest egg there is.',
       image:
         'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
@@ -57,17 +58,17 @@ async function seed() {
     }),
     Product.create({
       name: 'Kinder Surprise',
-      price: 5,
+      price: 500,
       description: 'A surprise that might kill you.',
       image:
         'https://www.sltrib.com/resizer/uO0oB5WHrEjnutm_xg5hmZJfUpQ=/970x0/filters:quality(100)/arc-anglerfish-arc2-prod-sltrib.s3.amazonaws.com/public/LNXMEMHN2BEFHE53JTBS4FRFCE.jpg',
-      stock: 33,
+      stock: 3300,
       origin: 'UK',
       categoryId: 2
     }),
     Product.create({
       name: 'Unicorn Egg',
-      price: 5000,
+      price: 500000,
       description: 'A Unicorn of an egg...',
       image: 'https://i.ytimg.com/vi/KPclvLGx99w/maxresdefault.jpg',
       stock: 3,
@@ -76,7 +77,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Platypus Egg',
-      price: 55,
+      price: 5500,
       description: 'The only mammal that lays an egg.',
       image:
         'https://qph.fs.quoracdn.net/main-qimg-16bedf49b82147889b1d80bacb310191.webp',
@@ -86,7 +87,7 @@ async function seed() {
     }),
     Product.create({
       name: "Yoshi's Egg",
-      price: 1337,
+      price: 133700,
       description: 'Even you can be mario.',
       image:
         'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
@@ -96,7 +97,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Gold Faberge Egg',
-      price: 9999,
+      price: 999900,
       description: 'Will provide for my grandkids college fund',
       image:
         'https://www.religiousitalianart.com/wp-content/uploads/2019/01/faberge-egg-gold.jpg',
@@ -111,13 +112,13 @@ async function seed() {
       code: 'EggShopper1',
       startDate: new Date(2020, 1, 3),
       endDate: new Date(2020, 2, 5),
-      discount: 0.1
+      discount: 1
     }),
     Promo.create({
       code: 'EggShopper2',
       startDate: new Date(2020, 4, 5),
       endDate: new Date(2020, 6, 7),
-      discount: 0.2
+      discount: 2
     })
   ])
 
@@ -153,16 +154,14 @@ async function seed() {
 
   const Orders = await Promise.all([
     Order.create({
-      wishlist: false,
-      purchasedTotal: 43.23
+      purchasedTotal: 4323
     }),
     Order.create({
-      wishlist: false,
       purchaseDate: new Date(2020, 1, 1),
       shipped: true,
       tracking: '123123TrackingInfo1234124',
       shippingAddress: 'fullstack',
-      purchasedTotal: 43.23,
+      purchasedTotal: 4323,
       promoId: 1,
       paymentId: 1,
       userId: 1
@@ -171,18 +170,13 @@ async function seed() {
       wishlist: true
     }),
     Order.create({
-      wishlist: false,
       purchaseDate: new Date(2020, 1, 1),
       shipped: true,
       tracking: 'TrackingInfo1234124',
       shippingAddress: 'fullstackss',
-      purchasedTotal: 555.23,
+      purchasedTotal: 55523,
       promoId: 1,
       paymentId: 1,
-      userId: 1
-    }),
-    Order.create({
-      wishlist: true,
       userId: 1
     }),
     Order.create({
@@ -195,6 +189,17 @@ async function seed() {
       quantity: 20,
       orderId: 1,
       productId: 1
+    })
+  ])
+
+  const Wishlists = await Promise.all([
+    Wishlist.create({
+      productId: 1,
+      userId: 1
+    }),
+    Wishlist.create({
+      productId: 3,
+      userId: 1
     })
   ])
 
