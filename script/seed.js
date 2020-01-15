@@ -169,6 +169,24 @@ async function seed() {
     }),
     Order.create({
       wishlist: true
+    }),
+    Order.create({
+      wishlist: false,
+      purchaseDate: new Date(2020, 1, 1),
+      shipped: true,
+      tracking: 'TrackingInfo1234124',
+      shippingAddress: 'fullstackss',
+      purchasedTotal: 555.23,
+      promoId: 1,
+      paymentId: 1,
+      userId: 1
+    }),
+    Order.create({
+      wishlist: true,
+      userId: 1
+    }),
+    Order.create({
+      userId: 1
     })
   ])
 

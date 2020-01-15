@@ -12,7 +12,7 @@ const Order = db.define('order', {
   },
   shipped: {
     type: Sequelize.BOOLEAN,
-    defaultValue: null
+    defaultValue: false
   },
   tracking: {
     type: Sequelize.STRING
@@ -24,5 +24,14 @@ const Order = db.define('order', {
     type: Sequelize.DECIMAL(10, 2)
   }
 })
+
+Order.findCurrentOrder = function(userId) {
+  return this.findAll({
+    where: {
+      id: userId,
+      shipped: false
+    }
+  })
+}
 
 module.exports = Order
