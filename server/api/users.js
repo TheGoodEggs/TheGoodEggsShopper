@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Order, OrderProducts} = require('../db/models')
+const {User, Order, OrderProducts, Wishlist} = require('../db/models')
 module.exports = router
 
 //already mounted on /users
@@ -86,6 +86,35 @@ router.delete('/:id/orders', async (req, res, next) => {
       }
     })
     res.json(changedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id/wishlist', async (req, res, next) => {
+  try {
+    const wishlist = await Wishlist.findAll({
+      where: {
+        userId: req.params.id
+      }
+    })
+    let products = []
+    wishlist.map(element => products.push(element.productId))
+    res.json(products)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id/wishlist', async (req, res, next) => {
+  try {
+    const deleteCount = await Wishlist.destroy({
+      where: {
+        userId: req.params.id,
+        productId: req.body.productId
+      }
+    })
+    res.json(deleteCount)
   } catch (error) {
     next(error)
   }
