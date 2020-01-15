@@ -95,10 +95,10 @@ export const deleteProductThunk = productId => async dispatch => {
  */
 export default function(state = defaultProduct, action) {
   switch (action.type) {
-    case GET_PRODUCT:
-      return action.product
-    case REMOVE_USER:
-      return defaultProduct
+    case ALL_PRODUCTS:
+      return action.products
+    // case REMOVE_USER:
+    //   return
     default:
       return state
   }

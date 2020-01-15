@@ -3,7 +3,6 @@ const {Product, Category} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
-  console.log('REQ DOT QUERY ID ====> ', req.query.categoryId)
   let catId = req.query.categoryId
   try {
     if (catId === undefined) {
@@ -49,9 +48,6 @@ router.get('/:productId', async (req, res, next) => {
 })
 
 // make sure only admins can add/update and delete
-// do we want to Admin to update the product? What do we want to update if we do?
-
-// update and add also!
 
 router.delete('/:productId', async (req, res, next) => {
   try {
@@ -67,6 +63,30 @@ router.delete('/:productId', async (req, res, next) => {
       })
     }
     res.json(productId)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newProduct = await Product.create(req.body)
+    res.json(newProduct)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:productId', async (req, res, next) => {
+  try {
+    await Product.update({
+      name: req.body.name,
+      price: req.body.price,
+      origin: req.body.origin,
+      stock: req.body.price
+    })
+    const updatedProduct = await Product.findByPk(req.params.productId)
+    res.json(updatedProduct)
   } catch (err) {
     next(err)
   }
