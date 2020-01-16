@@ -31,6 +31,7 @@ export const me = () => async dispatch => {
 }
 
 export const auth = (email, password, method) => async dispatch => {
+  //mapdispatch
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})

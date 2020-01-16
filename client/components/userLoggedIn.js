@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import axios from 'axios'
 
 //component
 
 //dont need to save any info for guest, except their cart, which can be saved locally, strictly frontend
 
-class Guest extends Component {
+class User extends Component {
   componentDidMount() {
     this.props.onLoadUser()
   }
@@ -16,7 +17,7 @@ class Guest extends Component {
   render() {
     return (
       <div>
-        <h3>Welcome guest!</h3>
+        <h3>Welcome User!</h3>
         <h6>Create Account - show CreateUser form</h6>
         <h6>or Log in - show LogIn form</h6>
       </div>
@@ -26,19 +27,20 @@ class Guest extends Component {
 
 //action creators
 
-const receiveGuest = function(guest) {
+const receiveUser = function(user) {
   return {
-    type: 'RECEIVE_GUEST',
-    receivedGuest: guest
+    type: 'RECEIVE_USER',
+    receivedUser: user
   }
 }
 
-const loadGuest = function() {
+const loadUser = function(id) {
   return function(dispatch) {
-    fetch('api/users/guest') //???
+    axios
+      .get('api/users/' + id) //???
       .then(res => res.json())
-      .then(guest => {
-        dispatch(receiveGuest(guest))
+      .then(user => {
+        dispatch(receiveUser(user))
       })
       .catch(error => console.error(error))
   }
@@ -46,12 +48,12 @@ const loadGuest = function() {
 
 //reducer
 
-export const guestReducer = function(guest, action) {
+export const userReducer = function(user, action) {
   switch (action.type) {
-    case 'RECEIVE_GUEST':
-      return action.receivedGuest
+    case 'RECEIVE_USER':
+      return action.receivedUser
     default:
-      return guest
+      return user
   }
 }
 
@@ -59,17 +61,17 @@ export const guestReducer = function(guest, action) {
 
 const mapState = state => {
   return {
-    email: state.guest
+    email: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     onLoadUser: function() {
-      dispatch(loadGuest()) //props.loadGuest set on props
+      dispatch(loadUser()) //props.loadUser set on props
     }
   }
 }
 
-const guestLoginConnected = connect(mapState, mapDispatch)(Guest)
-export default guestLoginConnected
+const userLoginConnected = connect(mapState, mapDispatch)(User)
+export default userLoginConnected
