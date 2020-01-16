@@ -1,17 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getWishlist} from '../store/wishlist'
-import Products from './products'
+import AllProducts from './products'
 
 class wishlist extends React.Component {
   componentDidMount() {
-    //need to put the user state
-    // this.props.getWishlist({ id: 1 })
+    // need to put the user state
+    this.props.getWishlist({id: 1})
   }
   render() {
     return (
       <div>
-        <Products loadWishList={this.props.loadProducts} />
+        {this.props.wishlist.map(product => {
+          const {name, price, description, image} = product
+          return (
+            <AllProducts
+              key={product.id}
+              item={{name, price, description, image}}
+            />
+          )
+        })}
       </div>
     )
   }
