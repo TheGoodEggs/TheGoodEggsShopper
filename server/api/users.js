@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Order, OrderProducts, Wishlist} = require('../db/models')
+const {User, Order, OrderProducts, Wishlist, Product} = require('../db/models')
 module.exports = router
 
 //already mounted on /users
@@ -93,13 +93,19 @@ router.delete('/:id/orders', async (req, res, next) => {
 
 router.get('/:id/wishlist', async (req, res, next) => {
   try {
-    const wishlist = await Wishlist.findAll({
+    const wishlist = await User.findAll({
       where: {
-        userId: req.params.id
+        id: req.params.id
+      },
+      include: {
+        model: Product
       }
     })
     let products = []
-    wishlist.map(element => products.push(element.productId))
+    wishlist[0].products.map(element => {
+      return products.push(element)
+    })
+    console.log(products)
     res.json(products)
   } catch (error) {
     next(error)

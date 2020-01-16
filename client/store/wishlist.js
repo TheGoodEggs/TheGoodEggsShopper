@@ -19,7 +19,7 @@ export const getWishlist = user => {
 export default (state = [], action) => {
   switch (action.type) {
     case GOT_WISHLIST:
-      return [...state, ...action.wishlist]
+      return [...action.wishlist]
     default:
       return state
   }

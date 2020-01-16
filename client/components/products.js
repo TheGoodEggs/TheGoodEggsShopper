@@ -2,7 +2,12 @@ import React, {Component} from 'react'
 
 export default class AllProducts extends Component {
   componentDidMount() {
-    this.props.loadProducts()
+    if (this.props.getWishlist) {
+      console.log('hit')
+      this.props.loadWishlist({user: 1})
+    } else {
+      this.props.loadProducts()
+    }
   }
   render() {
     console.log('WHAT IS products', this.props.products)

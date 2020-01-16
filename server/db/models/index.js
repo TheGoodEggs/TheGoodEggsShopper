@@ -12,7 +12,7 @@ Category.hasMany(Product)
 
 Order.belongsToMany(Product, {through: OrderProducts})
 Product.belongsToMany(Order, {through: OrderProducts})
-User.belongsToMany(Order, {through: Wishlist})
+User.belongsToMany(Product, {through: Wishlist})
 Product.belongsToMany(User, {through: Wishlist})
 
 Promo.hasMany(Order)
