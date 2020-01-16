@@ -4,6 +4,12 @@ module.exports = router
 
 //already mounted on /users
 
+// const userNotFound = next => {
+//   const err = new Error('User not found')
+//   err.status = 404
+//   next(err)
+// }
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -94,8 +100,13 @@ router.delete('/:id/orders', async (req, res, next) => {
 //add user
 router.post('/', async (req, res, next) => {
   try {
+    console.log('req.body>>', req.body)
     const createdUser = await User.create(req.body)
-    res.send(createdUser)
+    const returnMsg = {
+      message: 'WE DID IT',
+      user: createdUser
+    }
+    res.send(returnMsg)
   } catch (error) {
     next(error)
   }

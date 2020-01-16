@@ -7,14 +7,9 @@ import {auth} from '../store'
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
-  let thisSucks = false
-  if (displayName === 'Login') {
-    thisSucks = true
-  }
+  const {name, handleSubmit, error} = props
 
-  //UPDATE THE FALSE TERNARY W REGISTER COMPONENT
-  return thisSucks ? (
+  return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
         <div>
@@ -30,34 +25,11 @@ const AuthForm = props => {
           <input name="password" type="password" />
         </div>
         <div>
-          <button type="submit">{displayName}</button>
+          <button type="submit">Log In</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
-  ) : (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label>THIS SUCKS WORKS</label>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <a href="/auth/google">log in with Google</a>
     </div>
   )
 }
@@ -85,8 +57,6 @@ const mapSignup = state => {
   }
 }
 
-//update w register fields here
-
 const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
@@ -111,3 +81,52 @@ AuthForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object
 }
+
+// import React, {Component} from 'react'
+// import {Link} from 'react-router-dom'
+
+// export default class Login extends Component {
+//   constructor() {
+//     super()
+//     this.state = {
+//       email: '',
+//       password: ''
+//     }
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <h2>Login</h2>
+//         <h6>
+//           Not a member? <Link to="/register">Register here</Link>
+//         </h6>
+//         <form>
+//           <label>Email</label>
+//           <input
+//             type="text"
+//             name="email"
+//             placeholder="Email"
+//             value={this.state.email}
+//             onChange={this.handleChange}
+//           />
+//           <label>Password</label>
+//           <input
+//             type="text"
+//             name="password"
+//             placeholder="Passwprd"
+//             value={this.state.password}
+//             onChange={this.handleChange}
+//           />
+//         </form>
+//       </div>
+//     )
+//   }
+// }
+
+// const mapLogin = state => {
+//   return {
+//     name: 'login',
+//     displayName: 'Login',
+//     error: state.user.error
+//   }
+// }

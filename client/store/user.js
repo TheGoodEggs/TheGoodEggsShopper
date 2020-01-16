@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import connectedRegister from '../components/register'
 
 /**
  * ACTION TYPES
@@ -13,7 +14,9 @@ const UPDATE_USER = 'UPDATE_USER'
 /**
  * INITIAL STATE
  */
-const defaultUser = {}
+const defaultUser = {
+  users: []
+}
 
 /**
  * ACTION CREATORS
@@ -48,9 +51,10 @@ export const me = () => async dispatch => {
   }
 }
 //add new user
-export const newUser = function() {
+export const newUser = function(userInfo) {
   return async function(dispatch) {
-    const {data} = await axios.post('api/users')
+    console.log('USERINFO>>', userInfo)
+    const {data} = await axios.post('/api/users', userInfo) //takes an object, req.body is backend
     try {
       dispatch(addUser(data))
     } catch (error) {
@@ -62,7 +66,7 @@ export const newUser = function() {
 //edit user
 export const editUser = function(id) {
   return async function(dispatch) {
-    const {data} = await axios.put('api/users/' + id)
+    const {data} = await axios.put('/api/users/' + id)
     try {
       dispatch(updateUser(data))
     } catch (error) {

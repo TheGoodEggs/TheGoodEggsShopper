@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import axios from 'axios'
 import {newUser} from '../store/index'
 import {connect} from 'react-redux'
 
@@ -17,7 +16,12 @@ class Register extends Component {
       phone: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit(event) {
+    this.props.onLoad({
+      name: this.props.firstName
+    })
   }
   handleChange(event) {
     this.setState({
@@ -25,30 +29,36 @@ class Register extends Component {
     })
   }
 
-  async handleSubmit(event) {
-    //thunk, action creator
-    event.preventDefault() //prevent page refresh
-    const response = await axios.post('/api/users', this.state)
-    this.state = {
-      //clear form
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      address: '',
-      phone: ''
-    }
-    console.log(response)
-  }
-
   render() {
+    console.log(this.props)
     return (
       <div>
         <h2>Register</h2>
         <h6>
           Already a member? <Link to="/login">Log in</Link>
         </h6>
-        <form onSubmit={this.handleSubmit}>
+        <form
+          onSubmit={event => {
+            event.preventDefault()
+            this.props.register({
+              firstName: this.state.firstName,
+              lastName: this.state.lastName,
+              email: this.state.email,
+              password: this.state.password,
+              address: this.state.address,
+              phone: this.state.phone
+            })
+            this.setState({
+              //clear form
+              firstName: '',
+              lastName: '',
+              email: '',
+              password: '',
+              address: '',
+              phone: ''
+            })
+          }}
+        >
           <label>First Name</label>
           <input
             type="text"
@@ -97,8 +107,9 @@ class Register extends Component {
             value={this.state.phone}
             onChange={this.handleChange}
           />
+          <button type="submit">Submit</button>
         </form>
-        {this.state.firstName.length > 0 &&
+        {/* {this.state.firstName.length > 0 &&
         this.state.lastName.length > 0 &&
         this.state.email.length > 0 &&
         this.state.password.length > 0 &&
@@ -111,28 +122,26 @@ class Register extends Component {
           <button type="submit" disabled={true}>
             Submit
           </button>
-        )}
+        )} */}
       </div>
     )
   }
 }
 
-const mapState = function(state) {
-  return {
-    user: state.user
-  }
-}
+// const mapState = function(state) {
+//   return {
+//     user: state.user
+//   }
+// }
 
 const mapDispatch = function(dispatch) {
   return {
-    onLoadNewUser: function() {
-      dispatch(newUser()) //dispatch newUser thunk
-      //does newUser need a "user" argument?
+    register: function(userInfo) {
+      event.preventDefault() //prevent page refresh
+      dispatch(newUser(userInfo)) //dispatch newUser thunk
     }
   }
 }
 
-const registerContainer = connect(mapState, mapDispatch)(Register)
-export default registerContainer
-
-//<Route path="/register" exact component={register} />
+const connectedRegister = connect(null, mapDispatch)(Register)
+export default connectedRegister
