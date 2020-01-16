@@ -29,5 +29,3 @@ const Product = db.define('product', {
 })
 
 module.exports = Product
-
-// Need to associate Category
