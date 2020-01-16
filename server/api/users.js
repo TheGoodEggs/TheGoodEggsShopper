@@ -112,12 +112,13 @@ router.get('/:id/wishlist', async (req, res, next) => {
   }
 })
 
-router.delete('/:id/wishlist', async (req, res, next) => {
+router.delete('/:id/wishlist/:productId', async (req, res, next) => {
   try {
+    console.log(req.body)
     const deleteCount = await Wishlist.destroy({
       where: {
         userId: req.params.id,
-        productId: req.body.productId
+        productId: req.params.productId
       }
     })
     res.json(deleteCount)

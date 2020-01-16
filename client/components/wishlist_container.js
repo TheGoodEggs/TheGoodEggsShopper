@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getWishlist} from '../store/wishlist'
+import {getWishlist, removeWishlist} from '../store/wishlist'
 import AllProducts from './products'
 
 class wishlist extends React.Component {
@@ -12,11 +12,12 @@ class wishlist extends React.Component {
     return (
       <div>
         {this.props.wishlist.map(product => {
-          const {name, price, description, image} = product
+          const {name, price, description, image, id} = product
           return (
             <AllProducts
-              key={product.id}
-              item={{name, price, description, image}}
+              key={id}
+              item={{name, price, description, image, wishlist: true, id}}
+              wishlistHandler={{remove: this.props.removeWishlist}}
             />
           )
         })}
@@ -34,7 +35,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getWishlist: user => {
-      dispatch(getWishlist(user.id))
+      dispatch(getWishlist(user))
+    },
+    removeWishlist(user) {
+      dispatch(removeWishlist(user))
+      dispatch(getWishlist(user))
     }
   }
 }
