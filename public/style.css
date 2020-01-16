@@ -19,3 +19,17 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+img {
+  width: 400px;
+}
+
+button {
+  background-color: lightyellow;
+  border-radius: 4px;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 10px;
+}
