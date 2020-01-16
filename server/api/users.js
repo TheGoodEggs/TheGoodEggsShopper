@@ -120,6 +120,18 @@ router.delete('/:id/wishlist', async (req, res, next) => {
   }
 })
 
+router.post('/:id/wishlist', async (req, res, next) => {
+  try {
+    const addCount = await Wishlist.create({
+      userId: req.params.id,
+      productId: req.body.productId
+    })
+    res.json(addCount)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //add user
 router.post('/', async (req, res, next) => {
   try {
