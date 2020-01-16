@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import Axios from 'axios'
+import axios from 'axios'
+import {newUser} from '../store/index'
+import {connect} from 'react-redux'
 
-export default class Register extends Component {
+class Register extends Component {
   constructor() {
     super()
     this.state = {
       //hitting submit collects this, back end route creates user
-      //clear form
       firstName: '',
       lastName: '',
       email: '',
@@ -27,9 +28,17 @@ export default class Register extends Component {
   async handleSubmit(event) {
     //thunk, action creator
     event.preventDefault() //prevent page refresh
-    const response = await Axios.post('/api/users', this.state)
-
-    // console.log(response)
+    const response = await axios.post('/api/users', this.state)
+    this.state = {
+      //clear form
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      address: '',
+      phone: ''
+    }
+    console.log(response)
   }
 
   render() {
@@ -39,7 +48,7 @@ export default class Register extends Component {
         <h6>
           Already a member? <Link to="/login">Log in</Link>
         </h6>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <label>First Name</label>
           <input
             type="text"
@@ -89,9 +98,41 @@ export default class Register extends Component {
             onChange={this.handleChange}
           />
         </form>
+        {this.state.firstName.length > 0 &&
+        this.state.lastName.length > 0 &&
+        this.state.email.length > 0 &&
+        this.state.password.length > 0 &&
+        this.state.address.length > 0 &&
+        this.state.phone.length > 0 ? (
+          <button type="submit" disabled={false}>
+            Submit
+          </button>
+        ) : (
+          <button type="submit" disabled={true}>
+            Submit
+          </button>
+        )}
       </div>
     )
   }
 }
+
+const mapState = function(state) {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatch = function(dispatch) {
+  return {
+    onLoadNewUser: function() {
+      dispatch(newUser()) //dispatch newUser thunk
+      //does newUser need a "user" argument?
+    }
+  }
+}
+
+const registerContainer = connect(mapState, mapDispatch)(Register)
+export default registerContainer
 
 //<Route path="/register" exact component={register} />
