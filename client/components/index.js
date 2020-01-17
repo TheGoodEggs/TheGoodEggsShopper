@@ -5,5 +5,6 @@
  */
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
+export {default as Wishlist} from './wishlist_container'
 export {Login, Signup} from './auth-form'
 export {default as AllProductsContainer} from './products_container'

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import history from '../history'
-
 /**
  * ACTION TYPES
  */
@@ -44,9 +43,19 @@ const singleProduct = product => ({
 /**
  * THUNK CREATORS
  */
-export const allProductsThunk = () => async dispatch => {
+export const allProductsThunk = user => async dispatch => {
   try {
     const {data} = await axios.get('/api/products')
+    if (user) {
+      const wishlist = await axios.get(`./api/users/${user}/wishlist`)
+      let wishlistMap = {}
+      wishlist.data.forEach(element => {
+        if (!wishlistMap[element.id]) wishlistMap[element.id] = true
+      })
+      data.forEach((element, i) => {
+        if (wishlistMap[element.id]) data[i].wishlist = true
+      })
+    }
     dispatch(allProducts(data))
   } catch (err) {
     console.error(err)
