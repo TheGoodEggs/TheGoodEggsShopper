@@ -5,6 +5,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+const CLEAR_CART = 'CLEAR_CART'
 
 //INITIAL STATE
 
@@ -39,6 +40,10 @@ export const addToCartThunk = productId => {
   }
 }
 
+export const clearCart = () => ({
+  type: CLEAR_CART
+})
+
 // REDUCER
 
 export default function(state = cartState, action) {
@@ -58,13 +63,12 @@ export default function(state = cartState, action) {
           }
         ])
       }
-      // IF ELSE HERE
-      // if item is not already in, add it
-      // if item is in, quantity ++
-
       localStorage.setItem('cart', JSON.stringify(products))
       // history.push('/cart')
       return products
+    case CLEAR_CART:
+      localStorage.removeItem('cart')
+      return state
     default:
       return state
   }

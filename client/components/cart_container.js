@@ -1,10 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Cart from './cart'
-import {addToCartThunk} from '../store/cart'
+import {addToCartThunk, clearCart} from '../store/cart'
 
-const CartContainer = ({products, quantity}) => (
-  <Cart products={products} quantity={quantity} />
+const CartContainer = ({products, quantity, clear}) => (
+  <Cart products={products} quantity={quantity} clear={clear} />
 )
 
 //    onCheckoutClicked = {() => checkout(products)}
@@ -19,6 +19,9 @@ const mapDispatch = dispatch => {
   return {
     addToCartThunk(productId) {
       dispatch(addToCartThunk(productId))
+    },
+    clear() {
+      dispatch(clearCart())
     }
   }
 }

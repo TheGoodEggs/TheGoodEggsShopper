@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import AllProducts from './products'
 
-const Cart = ({products, total}) => {
+const Cart = ({products, total, clear}) => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))
   console.log('SO CONFUSED', cartItem)
   //Need to fix the reducer before i can map
@@ -30,7 +30,11 @@ const Cart = ({products, total}) => {
       <h2>EGG CART</h2>
       {/* <div>{products}</div> */}
       <div>{view}</div>
-      <p>TOTAL{total}</p>
+      <button type="button" onClick={() => clear()}>
+        {' '}
+        clear cart{' '}
+      </button>
+      <p>TOTAL</p>
     </div>
   )
 }
