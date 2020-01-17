@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 import {allProductsThunk} from '../store/products'
 import {addWishlist, removeWishlist} from '../store/wishlist'
 import AllProducts from './products'
