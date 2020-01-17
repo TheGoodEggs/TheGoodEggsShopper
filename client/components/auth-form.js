@@ -7,11 +7,16 @@ import {auth} from '../store'
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleLogin, error, handleRegister} = props
+  let thisSucks = false
+  if (displayName === 'Login') {
+    thisSucks = true
+  }
 
-  return (
+  //UPDATE THE FALSE TERNARY W REGISTER COMPONENT
+  return thisSucks ? (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <form onSubmit={handleLogin} name={name}>
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -23,6 +28,56 @@ const AuthForm = props => {
             <small>Password</small>
           </label>
           <input name="password" type="password" />
+        </div>
+        <div>
+          <button type="submit">{displayName}</button>
+        </div>
+        {error && error.response && <div> {error.response.data} </div>}
+      </form>
+      <a href="/auth/google">{displayName} with Google</a>
+    </div>
+  ) : (
+    <div>
+      <form onSubmit={handleRegister} name={name}>
+        <div>
+          <label htmlFor="firstName">
+            <small>First Name</small>
+          </label>
+          <input name="firstName" type="text" />
+        </div>
+
+        <div>
+          <label htmlFor="lastName">
+            <small>Last Name</small>
+          </label>
+          <input name="lastName" type="text" />
+        </div>
+
+        <div>
+          <label>THIS SUCKS WORKS</label>
+
+          <label htmlFor="email">
+            <small>Email</small>
+          </label>
+          <input name="email" type="text" />
+        </div>
+        <div>
+          <label htmlFor="password">
+            <small>Password</small>
+          </label>
+          <input name="password" type="password" />
+        </div>
+        <div>
+          <label htmlFor="address">
+            <small>Address</small>
+          </label>
+          <input name="address" type="text" />
+        </div>
+        <div>
+          <label htmlFor="phone">
+            <small>Phone</small>
+          </label>
+          <input name="phone" type="text" />
         </div>
         <div>
           <button type="submit">{displayName}</button>
@@ -57,14 +112,29 @@ const mapSignup = state => {
   }
 }
 
+//update w register fields here
+
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
+    handleLogin(evt) {
       evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      const storage = {
+        email: evt.target.email.value,
+        password: evt.target.password.value
+      }
+      console.log(event.target.name)
+      dispatch(auth(storage, event.target.name))
+    },
+    handleRegister(evt) {
+      const storage = {
+        firstName: evt.target.firstName.value,
+        lastName: evt.target.lastName.value,
+        email: evt.target.email.value,
+        password: evt.target.password.value,
+        address: evt.target.address.value,
+        phone: evt.target.password.value
+      }
+      dispatch(auth(storage, event.target.name))
     }
   }
 }
@@ -78,6 +148,5 @@ export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object
 }
