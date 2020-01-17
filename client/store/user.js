@@ -1,26 +1,47 @@
 import axios from 'axios'
 import history from '../history'
+import connectedRegister from '../components/register'
 
 /**
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const ADD_USER = 'ADD_USER'
+const UPDATE_USER = 'UPDATE_USER'
+//edit
 
 /**
  * INITIAL STATE
  */
-const defaultUser = {}
+const defaultUser = {
+  users: []
+}
 
 /**
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const addUser = function(user) {
+  return {
+    type: ADD_USER,
+    user: user
+  }
+}
+const updateUser = function(user) {
+  return {
+    type: UPDATE_USER,
+    user: user
+  }
+}
+//edit
 
 /**
  * THUNK CREATORS
  */
+
+//get user
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
@@ -29,11 +50,36 @@ export const me = () => async dispatch => {
     console.error(err)
   }
 }
+//add new user
+export const newUser = function(userInfo) {
+  return async function(dispatch) {
+    console.log('USERINFO>>', userInfo)
+    const {data} = await axios.post('/api/users', userInfo) //takes an object, req.body is backend
+    try {
+      dispatch(addUser(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
 
-export const auth = (email, password, method) => async dispatch => {
+//edit user
+export const editUser = function(id) {
+  return async function(dispatch) {
+    const {data} = await axios.put('/api/users/' + id)
+    try {
+      dispatch(updateUser(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export const auth = (storage, method) => async dispatch => {
+  //mapdispatch
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    res = await axios.post(`/auth/${method}`, storage)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
@@ -65,6 +111,8 @@ export default function(state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case ADD_USER:
+      return {...state, users: [...state.users, action.users]}
     default:
       return state
   }

@@ -11,6 +11,7 @@ import {
   Cart
 } from './components'
 import {me} from './store'
+import registerContainer from './components/register'
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
         <Route path="/products" component={AllProductsContainer} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/register" component={registerContainer} />
         <Route path="/wishlist" component={Wishlist} />
         <Route path="/cart" component={Cart} />
         {isLoggedIn && (
