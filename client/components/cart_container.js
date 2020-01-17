@@ -1,24 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getTotal, getCartProducts} from '../store'
 import Cart from './cart'
-import {allProductsThunk} from '../store/products'
+import {addToCartThunk} from '../store/cart'
 
-const CartContainer = ({products, total}) => (
-  <Cart products={products} total={total} />
+const CartContainer = ({products, quantity}) => (
+  <Cart products={products} quantity={quantity} />
 )
 
 //    onCheckoutClicked = {() => checkout(products)}
 
 const mapState = state => ({
   products: state.products,
-  total: getTotal(state)
+  quantity: state.quantity
+  // total: getTotal(state)
 })
 
 const mapDispatch = dispatch => {
   return {
-    loadProducts() {
-      dispatch(allProductsThunk())
+    addToCartThunk(productId) {
+      dispatch(addToCartThunk(productId))
     }
   }
 }

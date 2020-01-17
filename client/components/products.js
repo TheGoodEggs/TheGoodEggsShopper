@@ -8,7 +8,12 @@ const AllProducts = props => {
       <h3>{props.item.name}</h3>
       <h4>{props.item.origin}</h4>
       <h4>{props.item.price}</h4>
-      <button type="button">Add to cart!</button>
+      <button
+        type="button"
+        onClick={() => props.cartHandler.add(props.item.id)}
+      >
+        Add to cart!
+      </button>
       {!props.item.wishlist ? (
         <button
           type="button"
