@@ -75,11 +75,11 @@ export const editUser = function(id) {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (storage, method) => async dispatch => {
   //mapdispatch
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    res = await axios.post(`/auth/${method}`, storage)
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
