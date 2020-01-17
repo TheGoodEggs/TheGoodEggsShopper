@@ -20,6 +20,7 @@ const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 /**
  * ACTION CREATORS
  */
+
 const allProducts = products => ({
   type: ALL_PRODUCTS,
   products
@@ -102,3 +103,5 @@ export default function(state = [], action) {
       return state
   }
 }
+
+export const getProduct = (state, productId) => state.products[productId]
