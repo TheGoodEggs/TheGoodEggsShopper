@@ -1,41 +1,36 @@
-import React, {Component} from 'react'
-import Cart from './cart'
-import {addToCart} from '../store/cart'
-import CartContainer from './cart_container'
+import React from 'react'
 
-export default class AllProducts extends Component {
-  componentDidMount() {
-    this.props.loadProducts()
-  }
-  handleClick = id => {
-    this.props.addToCart(id)
-  }
-  render() {
-    console.log('WHAT IS products', this.props)
-    return (
-      <div>
-        <CartContainer />
-        <div>
-          {this.props.products.map(product => {
-            return (
-              <div key={product.id}>
-                <img src={product.image} />
-                <h3>{product.name}</h3>
-                <h4>{product.origin}</h4>
-                <h4>{product.price}</h4>
-                <button
-                  type="button"
-                  onClick={() => this.handleClick(product.id)}
-                >
-                  Add to cart!
-                </button>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    )
-  }
+const AllProducts = props => {
+  console.log(props)
+  return (
+    <div>
+      <img src={props.item.image} />
+      <h3>{props.item.name}</h3>
+      <h4>{props.item.origin}</h4>
+      <h4>{props.item.price}</h4>
+      <button type="button">Add to cart!</button>
+      {!props.item.wishlist ? (
+        <button
+          type="button"
+          onClick={() =>
+            props.wishlistHandler.add({id: 1, productId: props.item.id})
+          }
+        >
+          Add to wishlist
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() =>
+            props.wishlistHandler.remove({id: 1, productId: props.item.id})
+          }
+        >
+          {' '}
+          Remove from wishlist{' '}
+        </button>
+      )}
+    </div>
+  )
 }
 
-// cartItems={this.props.products} removeFromCart={this.handelRemove}
+export default AllProducts

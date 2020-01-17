@@ -7,7 +7,7 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   description: {
@@ -15,12 +15,12 @@ const Product = db.define('product', {
     allowNull: false
   },
   image: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false
   },
   stock: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    defaultValue: 0
   },
   origin: {
     type: Sequelize.STRING,

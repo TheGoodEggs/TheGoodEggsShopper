@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order, OrderProducts, Wishlist, Product} = require('../db/models')
 module.exports = router
 
 //already mounted on /users
@@ -26,6 +26,114 @@ router.get('/:id', async (req, res, next) => {
       }
     })
     res.send(singleUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id/orders', async (req, res, next) => {
+  try {
+    const allOrders = await Order.findAll({
+      where: {
+        userId: req.params.id
+      }
+    })
+    res.json(allOrders)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/:id/orders', async (req, res, next) => {
+  try {
+    const currentOrder = await Order.findCurrentOrder(req.params.id)
+    const addedOrder = await OrderProducts.create({
+      orderId: currentOrder[0].id,
+      quantity: req.body.quantity,
+      productId: req.body.productId
+    })
+    res.json(addedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id/orders', async (req, res, next) => {
+  try {
+    const currentOrder = await Order.findCurrentOrder(req.params.id)
+    const changedOrder = await OrderProducts.update(
+      {quantity: req.body.quantity},
+      {
+        where: {
+          orderId: currentOrder[0].id,
+          productId: req.body.productId
+        }
+      }
+    )
+    res.json(changedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id/orders', async (req, res, next) => {
+  try {
+    const currentOrder = await Order.findCurrentOrder(req.params.id)
+    const changedOrder = await OrderProducts.destroy({
+      where: {
+        orderId: currentOrder[0].id,
+        productId: req.body.productId
+      }
+    })
+    res.json(changedOrder)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id/wishlist', async (req, res, next) => {
+  try {
+    const wishlist = await User.findAll({
+      where: {
+        id: req.params.id
+      },
+      include: {
+        model: Product
+      }
+    })
+    let products = []
+    wishlist[0].products.map(element => {
+      return products.push(element)
+    })
+    console.log(products)
+    res.json(products)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id/wishlist/:productId', async (req, res, next) => {
+  try {
+    console.log(req.body)
+    const deleteCount = await Wishlist.destroy({
+      where: {
+        userId: req.params.id,
+        productId: req.params.productId
+      }
+    })
+    res.json(deleteCount)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/:id/wishlist', async (req, res, next) => {
+  try {
+    const addCount = await Wishlist.create({
+      userId: req.params.id,
+      productId: req.body.productId
+    })
+    res.json(addCount)
   } catch (error) {
     next(error)
   }
