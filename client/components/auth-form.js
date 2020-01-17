@@ -13,7 +13,6 @@ const AuthForm = props => {
     thisSucks = true
   }
 
-  //UPDATE THE FALSE TERNARY W REGISTER COMPONENT
   return thisSucks ? (
     <div>
       <form onSubmit={handleLogin} name={name}>
@@ -111,8 +110,6 @@ const mapSignup = state => {
     error: state.user.error
   }
 }
-
-//update w register fields here
 
 const mapDispatch = dispatch => {
   return {
