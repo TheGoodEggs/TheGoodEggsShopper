@@ -1,11 +1,14 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const AllProducts = props => {
   console.log(props)
   return (
     <div>
-      <img src={props.item.image} />
-      <h3>{props.item.name}</h3>
+      <Link to={`/products/${props.item.id}`}>
+        <img src={props.item.image} />
+        <h3>{props.item.name}</h3>
+      </Link>
       <h4>{props.item.origin}</h4>
       <h4>{props.item.price}</h4>
       <button
