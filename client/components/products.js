@@ -1,7 +1,6 @@
 import React from 'react'
 
 const AllProducts = props => {
-  console.log(props)
   return (
     <div>
       <img src={props.item.image} />
@@ -25,8 +24,7 @@ const AllProducts = props => {
             props.wishlistHandler.remove({id: 1, productId: props.item.id})
           }
         >
-          {' '}
-          Remove from wishlist{' '}
+          Remove from wishlist
         </button>
       )}
     </div>
