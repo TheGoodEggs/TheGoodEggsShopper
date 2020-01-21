@@ -158,14 +158,7 @@ async function seed() {
       firstName: 'Adam',
       lastName: 'Mak',
       email: 'sdf@email.com',
-      phone: '333-333-3333',
-      purchasedTotal: 4323
-    }),
-    Order.create({
-      firstName: 'Adam',
-      lastName: 'Mak',
-      phone: '333-333-3333',
-      email: 'sdf@email.com',
+      phone: '(347) 997 9900',
       purchaseDate: new Date(2020, 1, 1),
       shipped: true,
       tracking: '123123TrackingInfo1234124',
@@ -179,14 +172,7 @@ async function seed() {
       firstName: 'Adam',
       lastName: 'Mak',
       email: 'sdf@email.com',
-      phone: '333-333-3333',
-      wishlist: true
-    }),
-    Order.create({
-      firstName: 'Adam',
-      lastName: 'Mak',
-      phone: '333-333-3333',
-      email: 'sdf@email.com',
+      phone: '(347) 997 9900',
       purchaseDate: new Date(2020, 1, 1),
       shipped: true,
       tracking: 'TrackingInfo1234124',
@@ -194,13 +180,6 @@ async function seed() {
       purchasedTotal: 55523,
       promoId: 1,
       paymentId: 1,
-      userId: 1
-    }),
-    Order.create({
-      firstName: 'Adam',
-      lastName: 'Mak',
-      email: 'sdf@email.com',
-      phone: '333-333-3333',
       userId: 1
     })
   ])

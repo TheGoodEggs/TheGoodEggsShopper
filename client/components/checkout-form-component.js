@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const CheckoutForm = props => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))
@@ -44,7 +45,7 @@ const CheckoutForm = props => {
       <br />
       <br />
 
-      <form id="checkout">
+      <form id="checkout" onSubmit={props.handleSubmit}>
         <label>First Name</label>
         <input
           type="text"
@@ -93,10 +94,10 @@ const CheckoutForm = props => {
           value={creditCard}
           onChange={props.handleChange}
         />
+        <button type="submit" form="checkout">
+          Submit
+        </button>
       </form>
-      <button type="submit" form="checkout">
-        Submit
-      </button>
     </div>
   )
 }
