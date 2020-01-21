@@ -6,12 +6,10 @@ import AllProducts from './products'
 class wishlist extends React.Component {
   componentDidMount() {
     // need to put the user state
-    console.log(this.props.user.id)
     this.props.getWishlist({id: this.props.user.id})
   }
   render() {
-    console.log('THIS.PROPS =>', this.props)
-    return (
+    return this.props.wishlist.length >= 1 ? (
       <div>
         {this.props.wishlist.map(product => {
           const {name, price, description, image, id} = product
@@ -20,9 +18,14 @@ class wishlist extends React.Component {
               key={id}
               item={{name, price, description, image, wishlist: true, id}}
               wishlistHandler={{remove: this.props.removeWishlist}}
+              user={{userId: this.props.user.id}}
             />
           )
         })}
+      </div>
+    ) : (
+      <div>
+        <h1>Your wishlist is currently empty</h1>
       </div>
     )
   }
