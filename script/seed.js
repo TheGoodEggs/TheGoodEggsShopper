@@ -155,9 +155,17 @@ async function seed() {
 
   const Orders = await Promise.all([
     Order.create({
+      firstName: 'Adam',
+      lastName: 'Mak',
+      email: 'sdf@email.com',
+      phone: '333-333-3333',
       purchasedTotal: 4323
     }),
     Order.create({
+      firstName: 'Adam',
+      lastName: 'Mak',
+      phone: '333-333-3333',
+      email: 'sdf@email.com',
       purchaseDate: new Date(2020, 1, 1),
       shipped: true,
       tracking: '123123TrackingInfo1234124',
@@ -168,9 +176,17 @@ async function seed() {
       userId: 1
     }),
     Order.create({
+      firstName: 'Adam',
+      lastName: 'Mak',
+      email: 'sdf@email.com',
+      phone: '333-333-3333',
       wishlist: true
     }),
     Order.create({
+      firstName: 'Adam',
+      lastName: 'Mak',
+      phone: '333-333-3333',
+      email: 'sdf@email.com',
       purchaseDate: new Date(2020, 1, 1),
       shipped: true,
       tracking: 'TrackingInfo1234124',
@@ -181,6 +197,10 @@ async function seed() {
       userId: 1
     }),
     Order.create({
+      firstName: 'Adam',
+      lastName: 'Mak',
+      email: 'sdf@email.com',
+      phone: '333-333-3333',
       userId: 1
     })
   ])
