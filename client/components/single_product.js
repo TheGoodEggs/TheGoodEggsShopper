@@ -16,7 +16,7 @@ export default class SingleProduct extends Component {
         <ul>
           <li>{product.name}</li>
           <img src={product.image} />
-          <li>Product Price: {product.price}</li>
+          <li>Product Price: ${product.price / 100}</li>
           <li>About: {product.description}</li>
         </ul>
       </div>
