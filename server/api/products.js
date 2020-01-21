@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Product, Category} = require('../db/models')
-const isAdmin = require('./middleware')
+const {isAdmin, isUser} = require('./middleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -59,7 +59,7 @@ router.delete('/:productId', isAdmin, async (req, res, next) => {
     if (!product) {
       res.send('No Product Found!')
     } else {
-      await Product.distroy({
+      await Product.destroy({
         where: {
           id: productId
         }

@@ -8,7 +8,7 @@ import Cart from './'
 
 class AllProductsContainer extends React.Component {
   componentDidMount() {
-    this.props.loadProducts({id: 1})
+    this.props.loadProducts({id: this.props.user.id})
   }
   render() {
     return (
@@ -21,12 +21,22 @@ class AllProductsContainer extends React.Component {
             description,
             image,
             wishlist,
-            id
+            id,
+            stock
           } = product
           return (
             <AllProducts
               key={id}
-              item={{name, price, origin, description, image, wishlist, id}}
+              item={{
+                name,
+                price,
+                origin,
+                description,
+                image,
+                wishlist,
+                id,
+                stock
+              }}
               wishlistHandler={{
                 add: this.props.addWishlist,
                 remove: this.props.removeWishlist
@@ -34,6 +44,7 @@ class AllProductsContainer extends React.Component {
               cartHandler={{
                 add: this.props.addToCartThunk
               }}
+              user={{userId: this.props.user.id}}
             />
           )
         })}
@@ -45,7 +56,8 @@ class AllProductsContainer extends React.Component {
 const mapState = state => {
   return {
     products: state.products,
-    wishlist: state.wishlist
+    wishlist: state.wishlist,
+    user: state.user
   }
 }
 

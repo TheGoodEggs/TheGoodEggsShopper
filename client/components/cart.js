@@ -15,10 +15,6 @@ const Cart = ({products, total, clear}) => {
       </div>
     ))
   ) : (
-    // <div>
-    //   <p>EGG ====> {cartItem[0].product.name}</p>
-    //   <p>$$$ ====> {cartItem[0].product.price}</p>
-    // </div>
     <p>You have 0 items in your cart!</p>
   )
 
@@ -33,7 +29,7 @@ const Cart = ({products, total, clear}) => {
         TOTAL ${' '}
         {cartItem &&
           cartItem
-            .map(p => p.product.price * p.quantity)
+            .map(p => p.product.price / 100 * p.quantity)
             .reduce((a, b) => a + b, 0)}
       </p>
       <Link to="/checkout">
