@@ -10,6 +10,7 @@ class wishlist extends React.Component {
     this.props.getWishlist({id: this.props.user.id})
   }
   render() {
+    console.log('THIS.PROPS =>', this.props)
     return (
       <div>
         {this.props.wishlist.map(product => {

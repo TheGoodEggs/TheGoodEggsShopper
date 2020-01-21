@@ -2,7 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {allProductsThunk} from '../store/products'
 import {addWishlist, removeWishlist} from '../store/wishlist'
+import {addToCartThunk} from '../store/cart'
 import AllProducts from './products'
+import Cart from './'
 
 class AllProductsContainer extends React.Component {
   componentDidMount() {
@@ -10,16 +12,27 @@ class AllProductsContainer extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="allProductsdiv">
         {this.props.products.map(product => {
-          const {name, price, description, image, wishlist, id} = product
+          const {
+            name,
+            price,
+            origin,
+            description,
+            image,
+            wishlist,
+            id
+          } = product
           return (
             <AllProducts
               key={id}
-              item={{name, price, description, image, wishlist, id}}
+              item={{name, price, origin, description, image, wishlist, id}}
               wishlistHandler={{
                 add: this.props.addWishlist,
                 remove: this.props.removeWishlist
+              }}
+              cartHandler={{
+                add: this.props.addToCartThunk
               }}
             />
           )
@@ -48,6 +61,9 @@ const mapDispatch = dispatch => {
     removeWishlist(user) {
       dispatch(removeWishlist(user))
       dispatch(allProductsThunk(user.id))
+    },
+    addToCartThunk(productId) {
+      dispatch(addToCartThunk(productId))
     }
   }
 }
