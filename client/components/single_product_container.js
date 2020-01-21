@@ -21,15 +21,18 @@ class SingleProductContainer extends React.Component {
   }
   //work in progress
   increment() {
-    this.setState({
-      count: currentCount + 1
-    })
+    if (this.state.count <= this.props.product.stock) {
+      this.setState(previousState => ({
+        count: previousState.count + 1
+      }))
+    }
   }
   decrement() {
-    let currentCount = this.state.count
-    this.setState({
-      count: currentCount - 1
-    })
+    if (this.state.count >= 1) {
+      this.setState(previousState => ({
+        count: previousState.count - 1
+      }))
+    }
   }
 
   componentDidMount = async () => {
