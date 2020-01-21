@@ -4,10 +4,12 @@ import getOrderHistory from '../store/user.js'
 import axios from 'axios'
 
 class OrderHistory extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.loadUserOrders(this.props.user.currentUser.id)
+  }
 
   render() {
-    console.log('PROPS', this.props)
+    console.log('PROPS', this.props.orders)
     return (
       <div>
         <h4>Here are your the eggs you purchased</h4>
@@ -27,14 +29,15 @@ class OrderHistory extends Component {
 
 const mapState = function(state) {
   return {
-    orders: state.user.orders
+    orders: state.user.orders,
+    currentUser: state.user.currentUser
   }
 }
 
 const mapDispatch = function(dispatch) {
   return {
-    loadUserOrders: function(orders) {
-      dispatch(getOrderHistory(orders))
+    loadUserOrders: function(user) {
+      dispatch(getOrderHistory(user))
     }
   }
 }
