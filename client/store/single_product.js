@@ -3,10 +3,7 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const ALL_PRODUCTS = 'ALL_PRODUCTS'
-// const NEW_PRODUCT = 'NEW_PRODUCT'
-// const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
-// const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
+const SINGLE_PRODUCT = 'SINGLE_PRODUCT'
 
 /**
  * INITIAL STATE
@@ -19,11 +16,10 @@ const ALL_PRODUCTS = 'ALL_PRODUCTS'
  * ACTION CREATORS
  */
 
-const allProducts = products => ({
-  type: ALL_PRODUCTS,
-  products
+const singleProduct = product => ({
+  type: SINGLE_PRODUCT,
+  product
 })
-
 // const newProduct = product => ({
 //   type: NEW_PRODUCT,
 //   product
@@ -40,20 +36,20 @@ const allProducts = products => ({
 /**
  * THUNK CREATORS
  */
-export const allProductsThunk = user => async dispatch => {
+export const singleProductThunk = productId => async dispatch => {
   try {
-    const {data} = await axios.get('/api/products')
-    if (user) {
-      const wishlist = await axios.get(`./api/users/${user}/wishlist`)
-      let wishlistMap = {}
-      wishlist.data.forEach(element => {
-        if (!wishlistMap[element.id]) wishlistMap[element.id] = true
-      })
-      data.forEach((element, i) => {
-        if (wishlistMap[element.id]) data[i].wishlist = true
-      })
-    }
-    dispatch(allProducts(data))
+    const {data} = await axios.get(`/api/products/${productId}`)
+    // if (user) {
+    //   const wishlist = await axios.get(`./api/users/${user}/wishlist`)
+    //   let wishlistMap = {}
+    //   wishlist.data.forEach(element => {
+    //     if (!wishlistMap[element.id]) wishlistMap[element.id] = true
+    //   })
+    //   data.forEach((element, i) => {
+    //     if (wishlistMap[element.id]) data[i].wishlist = true
+    //   })
+    // }
+    dispatch(singleProduct(data))
   } catch (err) {
     console.error(err)
   }
@@ -89,13 +85,13 @@ export const allProductsThunk = user => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = [], action) {
+export default function(state = {}, action) {
   switch (action.type) {
-    case ALL_PRODUCTS:
-      return action.products
+    case SINGLE_PRODUCT:
+      return action.product
     default:
       return state
   }
 }
 
-export const getProduct = (state, productId) => state.products[productId]
+// export const getProduct = (state, productId) => state.products[productId]

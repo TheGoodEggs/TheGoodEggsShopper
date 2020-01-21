@@ -11,7 +11,7 @@ label {
 }
 
 nav a {
-  display: inline-block;
+  float: left;
   margin: 1em;
 }
 
@@ -22,6 +22,7 @@ form div {
 
 img {
   width: 400px;
+  height: 400px;
 }
 
 button {
@@ -32,4 +33,35 @@ button {
   text-align: center;
   display: inline-block;
   font-size: 10px;
+}
+
+.allProductsdiv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 30px;
+}
+
+.allProductsInnerDiv {
+  padding: 10px;
+}
+
+.navbar {
+  background-color: lightgoldenrodyellow;
+  overflow: hidden;
+}
+
+.navright {
+  float: right;
+}
+
+nav a {
+  float: left;
+  margin: 1em;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
 }

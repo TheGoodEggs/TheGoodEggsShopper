@@ -31,7 +31,7 @@ async function seed() {
       price: 1023,
       description: 'The most eggy of them all.',
       image:
-        'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
+        'https://image.cnbcfm.com/api/v1/image/105676135-1547460191113instagramegg.jpg?v=1547460443',
       stock: 23,
       origin: 'USA',
       categoryId: 2
@@ -51,7 +51,7 @@ async function seed() {
       price: 99,
       description: 'The laziest egg there is.',
       image:
-        'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
+        'https://media.gamestop.com/i/gamestop/10167246/Gudetama-Sitting-Plush-9.5-Inches',
       stock: 88,
       origin: 'Japan',
       categoryId: 1
@@ -70,7 +70,8 @@ async function seed() {
       name: 'Unicorn Egg',
       price: 500000,
       description: 'A Unicorn of an egg...',
-      image: 'https://i.ytimg.com/vi/KPclvLGx99w/maxresdefault.jpg',
+      image:
+        'https://images-na.ssl-images-amazon.com/images/I/71oc0j4kfgL._SL1500_.jpg',
       stock: 3,
       origin: 'Equestria',
       categoryId: 1
@@ -90,7 +91,7 @@ async function seed() {
       price: 133700,
       description: 'Even you can be mario.',
       image:
-        'https://cdn.vox-cdn.com/thumbor/CyGR5jAu364WZtRApk3UXbQd-oE=/0x0:876x584/920x613/filters:focal(368x222:508x362):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/62841097/instagram_egg.0.jpg',
+        'https://images-na.ssl-images-amazon.com/images/I/61JYYrlrQ1L._AC_SL1500_.jpg',
       stock: 2,
       origin: 'Mushroom Kingdom',
       categoryId: 1
