@@ -15,7 +15,9 @@ const USER_ORDERS = 'USER_ORDERS'
  * INITIAL STATE
  */
 const defaultUser = {
-  users: []
+  users: [],
+  currentUser: {},
+  orders: []
 }
 
 /**
@@ -108,7 +110,6 @@ export const logout = () => async dispatch => {
 
 //get user's order history
 export const getOrderHistory = function(user) {
-  //use user? or id for argument
   return async function(dispatch) {
     try {
       const {data} = await axios.get(`/api/users/${user.id}/orders`)
@@ -125,13 +126,14 @@ export const getOrderHistory = function(user) {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
-    case REMOVE_USER:
+      return {...state, currentUser: action.user}
+    case REMOVE_USER: //UPDATE
       return defaultUser
     case ADD_USER:
       return {...state, users: [...state.users, action.users]}
     case USER_ORDERS:
-      return action.receivedOrders
+      console.log(action.receivedOrders)
+      return {...state, orders: [...state.orders, action.receivedOrders]}
     default:
       return state
   }

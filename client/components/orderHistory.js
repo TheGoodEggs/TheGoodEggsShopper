@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import getOrderHistory from '../store/user.js'
+import axios from 'axios'
 
 class OrderHistory extends Component {
-  //   componentDidMount() {
-  //     this.props.loadUserOrders()
-  //   }
+  componentDidMount() {}
 
   render() {
+    console.log('PROPS', this.props)
     return (
       <div>
         <h4>Here are your the eggs you purchased</h4>
@@ -27,7 +27,7 @@ class OrderHistory extends Component {
 
 const mapState = function(state) {
   return {
-    orders: state.getUserOrders
+    orders: state.user.orders
   }
 }
 
