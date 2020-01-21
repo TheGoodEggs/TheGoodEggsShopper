@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CheckoutForm from './checkout-form-component'
 import {me} from '../store/user'
+import {newOrder} from '../store/checkout'
+import history from '../history'
 
 class Checkout extends React.Component {
   constructor() {
@@ -16,6 +18,7 @@ class Checkout extends React.Component {
       paymentType: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount = async () => {
     await this.props.findUser()
@@ -39,10 +42,25 @@ class Checkout extends React.Component {
     console.log(this.state)
   }
 
+  handleSubmit(event) {
+    event.preventDefault()
+    this.props.addOrder({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      phone: this.state.phoneNumber,
+      address: this.state.shippingAddress,
+      userId: this.props.user.id,
+      purchasedTotal: 999
+    })
+    history.push('/thankyou')
+  }
+
   render() {
     return (
       <CheckoutForm
         handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
         userInfo={{
           firstName: this.state.firstName,
           lastName: this.state.lastName,
@@ -66,7 +84,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    findUser: () => dispatch(me())
+    findUser: () => dispatch(me()),
+    addOrder: value => dispatch(newOrder(value))
   }
 }
 
