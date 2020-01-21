@@ -58,9 +58,8 @@ export const me = () => async dispatch => {
 //add new user
 export const newUser = function(userInfo) {
   return async function(dispatch) {
-    console.log('USERINFO>>', userInfo)
-    const {data} = await axios.post('/api/users', userInfo) //takes an object, req.body is backend
     try {
+      const {data} = await axios.post('/api/users', userInfo) //takes an object, req.body is backend
       dispatch(addUser(data))
     } catch (error) {
       console.error(error)
@@ -71,8 +70,8 @@ export const newUser = function(userInfo) {
 //edit user
 export const editUser = function(id) {
   return async function(dispatch) {
-    const {data} = await axios.put('/api/users/' + id)
     try {
+      const {data} = await axios.put('/api/users/' + id)
       dispatch(updateUser(data))
     } catch (error) {
       console.error(error)
@@ -111,8 +110,8 @@ export const logout = () => async dispatch => {
 export const getOrderHistory = function(user) {
   //use user? or id for argument
   return async function(dispatch) {
-    const {data} = await axios.get(`/api/users/${user.id}/orders`)
     try {
+      const {data} = await axios.get(`/api/users/${user.id}/orders`)
       dispatch(getUserOrders(data))
     } catch (error) {
       console.error(error)
