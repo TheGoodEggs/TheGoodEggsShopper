@@ -13,6 +13,13 @@ class OrderHistory extends Component {
         <h4>Here are your the eggs you purchased</h4>
         {/* map through all the user's orders to display */}
         {/* <ul>{this.props.orders}</ul> */}
+        {/* {this.props.orders.map(function(currentOrder) {
+          return (
+            <ul key={currentOrder.id}>
+              <div>{this.props.orders.id}</div>
+            </ul>
+          )
+        })} */}
       </div>
     )
   }
@@ -20,7 +27,7 @@ class OrderHistory extends Component {
 
 const mapState = function(state) {
   return {
-    orders: state.userOrders
+    orders: state.getUserOrders
   }
 }
 
