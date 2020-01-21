@@ -6,7 +6,8 @@ import AllProducts from './products'
 class wishlist extends React.Component {
   componentDidMount() {
     // need to put the user state
-    this.props.getWishlist({id: 1})
+    console.log(this.props.user.id)
+    this.props.getWishlist({id: this.props.user.id})
   }
   render() {
     console.log('THIS.PROPS =>', this.props)
@@ -29,7 +30,8 @@ class wishlist extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    wishlist: state.wishlist
+    wishlist: state.wishlist,
+    user: state.user
   }
 }
 

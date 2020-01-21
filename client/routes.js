@@ -9,7 +9,8 @@ import {
   AllProductsContainer,
   Wishlist,
   Cart,
-  SingleProductContainer
+  SingleProductContainer,
+  Checkout
 } from './components'
 import {me} from './store'
 import registerContainer from './components/register'
@@ -39,9 +40,11 @@ class Routes extends Component {
         <Route exact path="/register" component={registerContainer} />
         <Route exact path="/wishlist" component={Wishlist} />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout" component={Checkout} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
+            <Route path="/wishlist" component={Wishlist} />
             <Route path="/home" component={UserHome} />
           </Switch>
         )}

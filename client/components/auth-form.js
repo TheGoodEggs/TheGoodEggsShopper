@@ -8,13 +8,9 @@ import {auth} from '../store'
  */
 const AuthForm = props => {
   const {name, displayName, handleLogin, error, handleRegister} = props
-  let thisSucks = false
-  if (displayName === 'Login') {
-    thisSucks = true
-  }
 
   //UPDATE THE FALSE TERNARY W REGISTER COMPONENT
-  return thisSucks ? (
+  return props.displayName === 'Login' ? (
     <div>
       <form onSubmit={handleLogin} name={name}>
         <div>
@@ -34,7 +30,7 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      {/* <a href="/auth/google">{displayName} with Google</a> */}
     </div>
   ) : (
     <div>
@@ -54,8 +50,6 @@ const AuthForm = props => {
         </div>
 
         <div>
-          <label>THIS SUCKS WORKS</label>
-
           <label htmlFor="email">
             <small>Email</small>
           </label>
@@ -84,7 +78,7 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      {/* <a href="/auth/google">{displayName} with Google</a> */}
     </div>
   )
 }
@@ -122,7 +116,6 @@ const mapDispatch = dispatch => {
         email: evt.target.email.value,
         password: evt.target.password.value
       }
-      console.log(event.target.name)
       dispatch(auth(storage, event.target.name))
     },
     handleRegister(evt) {

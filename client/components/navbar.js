@@ -15,19 +15,22 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/wishlist">Wishlist</Link>
+          <Link to="/checkout">Checkout</Link>
         </div>
       ) : (
         <div className="navbar">
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
-          <div classNmae="navright">
+          <div className="navright">
             <Link to="/products">Shop</Link>
             <Link to="/wishlist">Wishlist</Link>
             <Link to="/cart">
               <i className="fa fa-shopping-cart fa-2x" />
             </Link>
           </div>
+          <Link to="/checkout">Checkout</Link>
         </div>
       )}
     </nav>
