@@ -11,8 +11,8 @@ class ThankYou extends Component {
     return (
       <div>
         <h2>Thank you!</h2>
-        <h3>Your order has been placed, confirmation email coming soon!</h3>
-        <h3>Have an EGGCELLENT day</h3>
+        <p>Your order has been placed, confirmation email coming soon!</p>
+        <p>Have an EGGCELLENT day</p>
       </div>
     )
   }
