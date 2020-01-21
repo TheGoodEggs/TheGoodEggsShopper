@@ -106,8 +106,6 @@ const mapSignup = state => {
   }
 }
 
-//update w register fields here
-
 const mapDispatch = dispatch => {
   return {
     handleLogin(evt) {

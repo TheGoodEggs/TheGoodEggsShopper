@@ -1,16 +1,42 @@
-import React from 'react'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {Link, Switch, Route} from 'react-router-dom'
+import AboutMe from './aboutMe'
+import OrderHistory from './orderHistory'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+//props
+
+// const {firstName, lastName, email, address, phone} = props
+
+class UserHome extends Component {
+  // flipAbout(event) {
+  //   event.preventDefault()
+  //   this.setState({...this.state, about: !this.state.about})
+  // }
+  //if about clicked, render about stuff, else, render null
+
+  render() {
+    console.log('HERE>>', this.props)
+    return (
+      <div>
+        <h3>Welcome, {this.props.firstName}!</h3>
+        <ul>
+          <Link to="/home/about">About Me</Link>
+        </ul>
+        <ul>
+          <Link to="/home/orderhistory">Order History</Link>
+        </ul>
+        <Switch>
+          <Route path="/home/about" component={AboutMe} />
+          <Route path="/home/orderhistory" component={OrderHistory} />
+        </Switch>`
+      </div>
+    )
+  }
 }
 
 /**
@@ -18,11 +44,15 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    firstName: state.user.firstName,
+    lastName: state.user.lastName,
+    email: state.user.email,
+    address: state.user.address,
+    phone: state.user.phone
   }
 }
 
-// export default connect(mapState)(UserHome)
+export default connect(mapState)(UserHome)
 
 /**
  * PROP TYPES
