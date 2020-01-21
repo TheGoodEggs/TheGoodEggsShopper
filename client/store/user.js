@@ -9,7 +9,7 @@ const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const ADD_USER = 'ADD_USER'
 const UPDATE_USER = 'UPDATE_USER'
-//edit
+const USER_ORDERS = 'USER_ORDERS'
 
 /**
  * INITIAL STATE
@@ -35,7 +35,12 @@ const updateUser = function(user) {
     user: user
   }
 }
-//edit
+const getUserOrders = function(orders) {
+  return {
+    type: USER_ORDERS,
+    receivedOrders: orders
+  }
+}
 
 /**
  * THUNK CREATORS
@@ -102,6 +107,19 @@ export const logout = () => async dispatch => {
   }
 }
 
+//get user's order history
+export const getOrderHistory = function(user) {
+  //use user? or id for argument
+  return async function(dispatch) {
+    const {data} = await axios.get(`/api/users/${user.id}/orders`)
+    try {
+      dispatch(getUserOrders(data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
@@ -113,6 +131,8 @@ export default function(state = defaultUser, action) {
       return defaultUser
     case ADD_USER:
       return {...state, users: [...state.users, action.users]}
+    case USER_ORDERS:
+      return action.receivedOrders
     default:
       return state
   }

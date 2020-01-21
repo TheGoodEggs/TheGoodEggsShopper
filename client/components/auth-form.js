@@ -8,12 +8,12 @@ import {auth} from '../store'
  */
 const AuthForm = props => {
   const {name, displayName, handleLogin, error, handleRegister} = props
-  let thisSucks = false
+  let getMeIn = false
   if (displayName === 'Login') {
-    thisSucks = true
+    getMeIn = true
   }
 
-  return thisSucks ? (
+  return getMeIn ? (
     <div>
       <form onSubmit={handleLogin} name={name}>
         <div>
@@ -53,8 +53,6 @@ const AuthForm = props => {
         </div>
 
         <div>
-          <label>THIS SUCKS WORKS</label>
-
           <label htmlFor="email">
             <small>Email</small>
           </label>
