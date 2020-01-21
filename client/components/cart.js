@@ -10,7 +10,7 @@ const Cart = ({products, total, clear}) => {
       <div key={p.id}>
         <p>name : {p.product.name}</p>
         <img src={p.product.image} />
-        <p>price : {p.product.price}</p>
+        <p>price : ${p.product.price / 100}</p>
         <p>quantity : {p.quantity}</p>
       </div>
     ))
