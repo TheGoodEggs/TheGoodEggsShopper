@@ -5,9 +5,6 @@ import AllProducts from './products'
 
 const Cart = ({products, total, clear}) => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))
-  console.log('SO CONFUSED', cartItem)
-  //Need to fix the reducer before i can map
-  // also maybe add a thunk for loading cart items?
   const view = cartItem ? (
     cartItem.map(p => (
       <div key={p.id}>
@@ -22,7 +19,7 @@ const Cart = ({products, total, clear}) => {
     //   <p>EGG ====> {cartItem[0].product.name}</p>
     //   <p>$$$ ====> {cartItem[0].product.price}</p>
     // </div>
-    <p>NEED SOME EGGS</p>
+    <p>You have 0 items in your cart!</p>
   )
 
   return (
@@ -30,10 +27,18 @@ const Cart = ({products, total, clear}) => {
       <h2>EGG CART</h2>
       <div>{view}</div>
       <button type="button" onClick={() => clear()}>
-        {' '}
-        clear cart{' '}
+        clear cart
       </button>
-      {/* <p>TOTAL $  {cartItem.map(p => p.product.price * p.quantity).reduce((a,b) => a + b, 0)}</p> */}
+      <p>
+        TOTAL ${' '}
+        {cartItem &&
+          cartItem
+            .map(p => p.product.price * p.quantity)
+            .reduce((a, b) => a + b, 0)}
+      </p>
+      <Link to="/checkout">
+        <button type="button">Check Out</button>
+      </Link>
     </div>
   )
 }
