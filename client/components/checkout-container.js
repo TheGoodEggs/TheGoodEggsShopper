@@ -21,7 +21,7 @@ class Checkout extends React.Component {
     await this.props.findUser()
     const {firstName, lastName, email, address, phone} = this.props.user
     //must be inside the if statement otherwise will turn into an uncontrolled componenet
-    if (this.props.user[0]) {
+    if (this.props.user) {
       this.setState({
         firstName,
         lastName,

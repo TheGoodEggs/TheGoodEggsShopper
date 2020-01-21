@@ -1,6 +1,7 @@
 import React from 'react'
 
 const CheckoutForm = props => {
+  let cartItem = JSON.parse(localStorage.getItem('cart'))
   const {
     firstName,
     lastName,
@@ -11,6 +12,21 @@ const CheckoutForm = props => {
   } = props.userInfo
   return (
     <div>
+      <table>
+        <tbody>
+          <tr>
+            <td>Product Name</td>
+            <td>Product Quantity</td>
+            <td>Product Subtotal</td>
+          </tr>
+          <tr>
+            <td>{cartItem[0].product.name}</td>
+            <td>{cartItem[0].quantity}</td>
+            <td>Product Subtotal</td>
+          </tr>
+        </tbody>
+      </table>
+
       <form id="checkout">
         <label>First Name</label>
         <input
