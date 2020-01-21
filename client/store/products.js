@@ -27,6 +27,7 @@ const singleProduct = product => ({
   type: SINGLE_PRODUCT,
   product
 })
+
 // const newProduct = product => ({
 //   type: NEW_PRODUCT,
 //   product

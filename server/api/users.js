@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, Order, OrderProducts, Wishlist, Product} = require('../db/models')
+const isAdmin = require('./middleware')
 module.exports = router
 
 //already mounted on /users
@@ -145,21 +146,6 @@ router.post('/:id/wishlist', async (req, res, next) => {
   }
 })
 
-//add user
-router.post('/', async (req, res, next) => {
-  try {
-    console.log('req.body>>', req.body)
-    const createdUser = await User.create(req.body)
-    const returnMsg = {
-      message: 'WE DID IT',
-      user: createdUser
-    }
-    res.send(returnMsg)
-  } catch (error) {
-    next(error)
-  }
-})
-
 //update user
 router.put('/:id', async (req, res, next) => {
   try {
@@ -178,7 +164,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //remove user
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin, async (req, res, next) => {
   try {
     await User.destroy({
       where: {
