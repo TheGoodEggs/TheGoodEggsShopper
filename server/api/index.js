@@ -1,5 +1,6 @@
 const router = require('express').Router()
 module.exports = router
+//route protection
 
 router.use('/users', require('./users'))
 router.use('/products', require('./products'))

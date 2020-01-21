@@ -49,7 +49,6 @@ class Register extends Component {
               phone: this.state.phone
             })
             this.setState({
-              //clear form
               firstName: '',
               lastName: '',
               email: '',
@@ -109,30 +108,10 @@ class Register extends Component {
           />
           <button type="submit">Submit</button>
         </form>
-        {/* {this.state.firstName.length > 0 &&
-        this.state.lastName.length > 0 &&
-        this.state.email.length > 0 &&
-        this.state.password.length > 0 &&
-        this.state.address.length > 0 &&
-        this.state.phone.length > 0 ? (
-          <button type="submit" disabled={false}>
-            Submit
-          </button>
-        ) : (
-          <button type="submit" disabled={true}>
-            Submit
-          </button>
-        )} */}
       </div>
     )
   }
 }
-
-// const mapState = function(state) {
-//   return {
-//     user: state.user
-//   }
-// }
 
 const mapDispatch = function(dispatch) {
   return {

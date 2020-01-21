@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product, Category} = require('../db/models')
+const isAdmin = require('./middleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -51,7 +52,7 @@ router.get('/:productId', async (req, res, next) => {
 
 // make sure only admins can add/update and delete
 
-router.delete('/:productId', async (req, res, next) => {
+router.delete('/:productId', isAdmin, async (req, res, next) => {
   try {
     const productId = req.params.productId
     const product = await Product.findById(productId)
@@ -70,7 +71,7 @@ router.delete('/:productId', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body)
     res.json(newProduct)
@@ -79,7 +80,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:productId', async (req, res, next) => {
+router.put('/:productId', isAdmin, async (req, res, next) => {
   try {
     await Product.update({
       name: req.body.name,
