@@ -28,13 +28,12 @@ const Cart = ({products, total, clear}) => {
   return (
     <div>
       <h2>EGG CART</h2>
-      {/* <div>{products}</div> */}
       <div>{view}</div>
       <button type="button" onClick={() => clear()}>
         {' '}
         clear cart{' '}
       </button>
-      <p>TOTAL</p>
+      {/* <p>TOTAL $  {cartItem.map(p => p.product.price * p.quantity).reduce((a,b) => a + b, 0)}</p> */}
     </div>
   )
 }

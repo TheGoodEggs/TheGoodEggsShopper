@@ -2,20 +2,19 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 const AllProducts = props => {
-  console.log(props)
   return (
-    <div>
+    <div className="allProductsInnerDiv">
       <Link to={`/products/${props.item.id}`}>
         <img src={props.item.image} />
         <h3>{props.item.name}</h3>
       </Link>
       <h4>{props.item.origin}</h4>
-      <h4>{props.item.price}</h4>
+      <h4>$ {props.item.price}</h4>
       <button
         type="button"
         onClick={() => props.cartHandler.add(props.item.id)}
       >
-        Add to cart!
+        <i className="fa fa-shopping-cart fa-2x" />
       </button>
       {!props.item.wishlist ? (
         <button
@@ -24,7 +23,7 @@ const AllProducts = props => {
             props.wishlistHandler.add({id: 1, productId: props.item.id})
           }
         >
-          Add to wishlist
+          <i className="fa fa-heart fa-2x" />
         </button>
       ) : (
         <button
@@ -34,7 +33,7 @@ const AllProducts = props => {
           }
         >
           {' '}
-          Remove from wishlist{' '}
+          <i className="fa fa-heart-o fa-2x" />{' '}
         </button>
       )}
     </div>

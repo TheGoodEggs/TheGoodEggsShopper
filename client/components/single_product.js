@@ -1,17 +1,18 @@
 import React, {Component} from 'react'
-import Navbar from './navbar'
 
-export default class SingleStudent extends Component {
+export default class SingleProduct extends Component {
   componentDidMount() {
-    this.props.loadProduct(this.props.productId)
+    this.props.loadProduct(8)
   }
 
   render() {
+    console.log('this dot props', this.props)
+    console.log('TYPE OF', typeof this.props.productId)
+    console.log('state', this.state)
     const product = this.props.product
 
     return (
       <div>
-        <Navbar />
         <ul>
           <li>{product.name}</li>
           <img src={product.image} />

@@ -36,9 +36,9 @@ const singleProduct = product => ({
 /**
  * THUNK CREATORS
  */
-export const singleProductThunk = user => async dispatch => {
+export const singleProductThunk = productId => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/products/${user}`)
+    const {data} = await axios.get(`/api/products/${productId}`)
     // if (user) {
     //   const wishlist = await axios.get(`./api/users/${user}/wishlist`)
     //   let wishlistMap = {}
@@ -88,10 +88,10 @@ export const singleProductThunk = user => async dispatch => {
 export default function(state = {}, action) {
   switch (action.type) {
     case SINGLE_PRODUCT:
-      return action.products
+      return action.product
     default:
       return state
   }
 }
 
-export const getProduct = (state, productId) => state.products[productId]
+// export const getProduct = (state, productId) => state.products[productId]

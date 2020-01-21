@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 // ACTION TYPES
 
@@ -28,9 +29,13 @@ export const getCart = () => ({
   type: GET_CART
 })
 
-export const removefromCart = productId => ({
+export const clearCart = () => ({
+  type: CLEAR_CART
+})
+
+export const removefromCart = product => ({
   type: REMOVE_FROM_CART,
-  productId
+  product
 })
 
 export const addToCartThunk = productId => {
@@ -39,10 +44,6 @@ export const addToCartThunk = productId => {
     dispatch(addToCart(data))
   }
 }
-
-export const clearCart = () => ({
-  type: CLEAR_CART
-})
 
 // REDUCER
 
@@ -68,6 +69,7 @@ export default function(state = cartState, action) {
       return products
     case CLEAR_CART:
       localStorage.removeItem('cart')
+      history.push('/cart')
       return state
     default:
       return state

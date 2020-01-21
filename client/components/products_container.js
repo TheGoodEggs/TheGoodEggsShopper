@@ -13,13 +13,21 @@ class AllProductsContainer extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="allProductsdiv">
         {this.props.products.map(product => {
-          const {name, price, description, image, wishlist, id} = product
+          const {
+            name,
+            price,
+            origin,
+            description,
+            image,
+            wishlist,
+            id
+          } = product
           return (
             <AllProducts
               key={id}
-              item={{name, price, description, image, wishlist, id}}
+              item={{name, price, origin, description, image, wishlist, id}}
               wishlistHandler={{
                 add: this.props.addWishlist,
                 remove: this.props.removeWishlist

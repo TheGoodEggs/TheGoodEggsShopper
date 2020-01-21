@@ -6,11 +6,11 @@ import {addWishlist, removeWishlist} from '../store/wishlist'
 import {addToCartThunk} from '../store/cart'
 import AllProducts from './products'
 import Cart from '.'
-import SingleProducts from './single_product'
+import SingleProduct from './single_product'
 
 const SingleProductContainer = props => {
   return (
-    <SingleProducts
+    <SingleProduct
       productId={props.match.params.productId}
       product={props.product}
       loadProduct={props.loadProduct}
@@ -27,12 +27,11 @@ const mapState = state => {
 const mapDispatch = (dispatch, ownProps) => {
   return {
     loadProduct() {
-      const productId = ownProps.match.params.productId
-      dispatch(singleProductThunk(productId))
-    },
-    addToCartThunk(productId) {
-      dispatch(addToCartThunk(productId))
+      dispatch(singleProductThunk(ownProps.match.params.productId))
     }
+    // addToCartThunk(productId) {
+    //   dispatch(addToCartThunk(productId))
+    // }
   }
 }
 
