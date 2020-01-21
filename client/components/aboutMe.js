@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 
 class AboutMe extends Component {
   render() {
-    console.log('MY PROPS', this.props)
     return (
       <div>
         <h4>Name:</h4>
