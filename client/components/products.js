@@ -20,7 +20,10 @@ const AllProducts = props => {
         <button
           type="button"
           onClick={() =>
-            props.wishlistHandler.add({id: 1, productId: props.item.id})
+            props.wishlistHandler.add({
+              id: props.user.userId,
+              productId: props.item.id
+            })
           }
         >
           <i className="fa fa-heart fa-2x" />
@@ -29,7 +32,10 @@ const AllProducts = props => {
         <button
           type="button"
           onClick={() =>
-            props.wishlistHandler.remove({id: 1, productId: props.item.id})
+            props.wishlistHandler.remove({
+              id: props.user.userId,
+              productId: props.item.id
+            })
           }
         >
           {' '}
