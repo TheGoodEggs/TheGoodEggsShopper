@@ -15,17 +15,34 @@ const CheckoutForm = props => {
       <table>
         <tbody>
           <tr>
+            <td>Product ID</td>
             <td>Product Name</td>
             <td>Product Quantity</td>
             <td>Product Subtotal</td>
           </tr>
-          <tr>
-            <td>{cartItem[0].product.name}</td>
-            <td>{cartItem[0].quantity}</td>
-            <td>Product Subtotal</td>
-          </tr>
+
+          {cartItem &&
+            cartItem.map(p => (
+              <tr key={p.id}>
+                <td>{p.id}</td>
+                <td>{p.product.name}</td>
+                <td>{p.quantity}</td>
+                <td>$ {p.product.price / 100}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
+      <h3>
+        Total: ${cartItem &&
+          cartItem
+            .map(p => p.product.price * p.quantity)
+            .reduce((a, b) => a + b, 0) / 100}{' '}
+      </h3>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
 
       <form id="checkout">
         <label>First Name</label>
