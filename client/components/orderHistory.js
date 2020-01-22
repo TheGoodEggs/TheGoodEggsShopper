@@ -14,9 +14,9 @@ class OrderHistory extends Component {
         <p>Eggs you've purchased:</p>
         {this.props.orders.map(function(currentOrder) {
           return (
-            <div key={currentOrder.id}>
+            <div className="orderHistoryInfo" key={currentOrder.id}>
               <p>
-                Order ID: {currentOrder.id} Total: ${
+                Order ID: {currentOrder.id} &nbsp; &nbsp; &nbsp; Total: ${
                   currentOrder.purchasedTotal
                 }
               </p>
