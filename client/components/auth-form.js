@@ -9,7 +9,6 @@ import {auth} from '../store'
 const AuthForm = props => {
   const {name, displayName, handleLogin, error, handleRegister} = props
 
-  //UPDATE THE FALSE TERNARY W REGISTER COMPONENT
   return props.displayName === 'Login' ? (
     <div>
       <form onSubmit={handleLogin} name={name}>

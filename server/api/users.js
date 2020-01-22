@@ -3,13 +3,7 @@ const {User, Order, OrderProducts, Wishlist, Product} = require('../db/models')
 const {isAdmin, isUserOrAdmin} = require('./middleware')
 module.exports = router
 
-//already mounted on /users
-
-// const userNotFound = next => {
-//   const err = new Error('User not found')
-//   err.status = 404
-//   next(err)
-// }
+//mounted on /users
 
 router.get('/', async (req, res, next) => {
   try {

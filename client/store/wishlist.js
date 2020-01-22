@@ -23,7 +23,7 @@ export const getWishlist = user => {
 
 export const addWishlist = user => {
   return async dispatch => {
-    await axios.post(`./api/users/${user.id}/wishlist`, {
+    await axios.post(`/api/users/${user.id}/wishlist`, {
       productId: user.productId
     })
     dispatch(getWishlist(user.id))

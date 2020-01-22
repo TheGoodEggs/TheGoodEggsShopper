@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import connectedRegister from '../components/register'
+import {log} from 'util'
 
 /**
  * ACTION TYPES
@@ -99,7 +99,7 @@ export const me = () => async dispatch => {
 export const newUser = function(userInfo) {
   return async function(dispatch) {
     try {
-      const {data} = await axios.post('/api/users', userInfo) //takes an object, req.body is backend
+      const {data} = await axios.post('/api/users', userInfo)
       dispatch(addUser(data))
     } catch (error) {
       console.error(error)
@@ -147,11 +147,10 @@ export const logout = () => async dispatch => {
 }
 
 //get user's order history
-export const getOrderHistory = function(user) {
-  //use user? or id for argument
+export const getOrderHistory = function(id) {
   return async function(dispatch) {
     try {
-      const {data} = await axios.get(`/api/users/${user.id}/orders`)
+      const {data} = await axios.get(`/api/users/${id}/orders`)
       dispatch(getUserOrders(data))
     } catch (error) {
       console.error(error)
@@ -179,11 +178,18 @@ export default function(state = defaultUser, action) {
     case GET_USER:
       return {...state, currentUser: action.user}
     case REMOVE_USER:
-      return defaultUser
+      return {
+        ...state,
+        users: state.users.filter(user => {
+          if (user.id !== action.user.id) {
+            return true
+          }
+        })
+      }
     case ADD_USER:
       return {...state, users: [...state.users, action.users]}
     case USER_ORDERS:
-      return action.receivedOrders
+      return {...state, orders: [...state.orders, ...action.receivedOrders]}
     default:
       return state
   }

@@ -7,7 +7,6 @@ class Register extends Component {
   constructor() {
     super()
     this.state = {
-      //hitting submit collects this, back end route creates user
       firstName: '',
       lastName: '',
       email: '',
@@ -16,48 +15,39 @@ class Register extends Component {
       phone: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.submitHelper = this.submitHelper.bind(this)
   }
 
-  handleSubmit(event) {
-    this.props.onLoad({
-      name: this.props.firstName
-    })
-  }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     })
   }
 
+  submitHelper(event) {
+    event.preventDefault()
+    this.props.register({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password,
+      address: this.state.address,
+      phone: this.state.phone
+    })
+    this.setState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      address: '',
+      phone: ''
+    })
+  }
+
   render() {
-    console.log(this.props)
     return (
       <div>
-        <h2>Register</h2>
-        <h6>
-          Already a member? <Link to="/login">Log in</Link>
-        </h6>
-        <form
-          onSubmit={event => {
-            event.preventDefault()
-            this.props.register({
-              firstName: this.state.firstName,
-              lastName: this.state.lastName,
-              email: this.state.email,
-              password: this.state.password,
-              address: this.state.address,
-              phone: this.state.phone
-            })
-            this.setState({
-              firstName: '',
-              lastName: '',
-              email: '',
-              password: '',
-              address: '',
-              phone: ''
-            })
-          }}
-        >
+        <form onSubmit={this.props.submitHelper()}>
           <label>First Name</label>
           <input
             type="text"
@@ -116,8 +106,7 @@ class Register extends Component {
 const mapDispatch = function(dispatch) {
   return {
     register: function(userInfo) {
-      event.preventDefault() //prevent page refresh
-      dispatch(newUser(userInfo)) //dispatch newUser thunk
+      dispatch(newUser(userInfo))
     }
   }
 }
