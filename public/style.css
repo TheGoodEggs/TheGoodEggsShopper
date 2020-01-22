@@ -4,6 +4,7 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 label {
@@ -31,16 +32,29 @@ img.home_image {
   height: 50%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 50px;
 }
 
 button {
-  background-color: lightyellow;
+  background-color: lightgoldenrodyellow;
+  width: 60px;
+  height: 40px;
   border-radius: 4px;
   color: black;
   padding: 10px 20px;
   text-align: center;
   display: inline-block;
-  font-size: 10px;
+  font-size: 15px;
+}
+
+.buttonDiv {
+  display: flex;
+  align-content: center;
+}
+
+.cartButton {
+  width: 120px;
+  height: 40px;
 }
 
 .allProductsdiv {
@@ -52,12 +66,15 @@ button {
 }
 
 .allProductsInnerDiv {
-  padding: 10px;
+  padding: 50px;
 }
 
 .navbar {
-  background-color: lightgoldenrodyellow;
+  background-color: orangered;
   overflow: hidden;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .navright {
@@ -72,9 +89,111 @@ nav a {
 
 h1 {
   text-align: center;
+  padding: 10px;
+  color: white;
+}
+
+.UserHome {
+  text-align: center;
 }
 
 .UserHome a {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+table {
+  display: grid;
+  border-collapse: collapse;
+  min-width: 100%;
+  grid-template-columns:
+    minmax(150px, 1.67fr)
+    minmax(150px, 1.67fr)
+    minmax(150px, 1.67fr)
+    minmax(150px, 1.67fr)
+    minmax(150px, 1.67fr);
+}
+
+tr {
+  display: contents;
+}
+
+th,
+td {
+  padding: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  white-space: nowrap;
+}
+
+th {
+  top: 0;
+  background: lightgoldenrodyellow;
+  text-align: center;
+  font-weight: normal;
+  font-size: 1rem;
+  color: rgb(53, 53, 53);
+}
+
+td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #808080;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+header {
+  display: flex;
+}
+img.thanksImg {
+  height: 350px;
+  width: 350px;
+}
+
+img.cartImg {
+  height: 150px;
+  width: 150px;
+}
+
+hr {
+  border: 1px solid orangered;
+}
+
+.aboutme {
+  text-align: center;
+}
+
+.UserHr {
+  width: 250px;
+}
+
+.orderhistory {
+  text-align: center;
+}
+
+.singleEggDiv {
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 100px;
+}
+
+.singleEggImg {
   float: left;
   padding: 20px;
+}
+
+/* .cartHeader{
+  background-color: lightgoldenrodyellow;
+  padding: 0%;
+} */
+
+h2 {
+  background-color: lightgoldenrodyellow;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  padding: 50px;
+  text-align: center;
+  color: orangered;
 }

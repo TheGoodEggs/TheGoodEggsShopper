@@ -1,4 +1,6 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
+import {formatMoney} from '../utils'
 
 const CheckoutForm = props => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))
@@ -10,15 +12,25 @@ const CheckoutForm = props => {
     phoneNumber,
     creditCard
   } = props.userInfo
+  let total
+  if (cartItem) {
+    total = cartItem
+      .map(p => p.product.price * p.quantity)
+      .reduce((a, b) => a + b, 0)
+  } else {
+    total = 0
+  }
+
   return (
     <div>
-      <table>
-        <tbody>
+      <div>
+        <table>
           <tr>
-            <td>Product ID</td>
-            <td>Product Name</td>
-            <td>Product Quantity</td>
-            <td>Product Subtotal</td>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th>Product Quantity</th>
+            <th>Product Price</th>
+            <th>Product Subtotal</th>
           </tr>
 
           {cartItem &&
@@ -27,17 +39,25 @@ const CheckoutForm = props => {
                 <td>{p.id}</td>
                 <td>{p.product.name}</td>
                 <td>{p.quantity}</td>
-                <td>$ {p.product.price}</td>
+                <td>{formatMoney(Number(p.product.price))}</td>
+                <td>{formatMoney(Number(p.product.price * p.quantity))}</td>
               </tr>
             ))}
-        </tbody>
-      </table>
-      <h3>
-        Total: ${cartItem &&
+        </table>
+      </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <h3> Total: $ {formatMoney(Number(total))}</h3>
+
+      {/* {cartItem &&
           cartItem
             .map(p => p.product.price * p.quantity)
-            .reduce((a, b) => a + b, 0)}{' '}
-      </h3>
+            .reduce((a, b) => a + b, 0)}{' '} */}
+
       <br />
       <br />
       <br />

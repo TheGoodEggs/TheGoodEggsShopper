@@ -10,8 +10,11 @@ class OrderHistory extends Component {
 
   render() {
     return this.props.orders.length > 1 ? ( //if the user has orders
-      <div>
-        <h4>Here are the eggs you purchased!</h4>
+      
+        
+    return (
+      <div className="orderhistory">
+        <p>Eggs you've purchased:</p>
         {this.props.orders.map(function(currentOrder) {
           return (
             <ul key={currentOrder.id}>

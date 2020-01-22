@@ -4,37 +4,65 @@ import {Link} from 'react-router-dom'
 import AllProducts from './products'
 import {formatMoney} from '../utils'
 
-const Cart = ({products, total, clear}) => {
+const Cart = ({products, clear}) => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))
-  const view = cartItem ? (
-    cartItem.map(p => (
-      <div key={p.id}>
-        <p>name : {p.product.name}</p>
-        <img src={p.product.image} />
-        <p>price : {formatMoney(Number(p.product.price))}</p>
-        <p>quantity : {p.quantity}</p>
-      </div>
-    ))
+  let total
+  if (cartItem) {
+    total = cartItem
+      .map(p => p.product.price * p.quantity)
+      .reduce((a, b) => a + b, 0)
+  } else {
+    total = 0
+  }
+  const itemsInCart = cartItem ? (
+    <div>
+      <table>
+        <tr>
+          <th>Product Image</th>
+          <th>Product Name</th>
+          <th>Product Price</th>
+          <th>Product Quantity</th>
+          <th>Product Subtotal</th>
+        </tr>
+
+        {cartItem.map(p => (
+          <tr key={p.id}>
+            <td>
+              <img className="cartImg" src={p.product.image} />
+            </td>
+            <td>{p.product.name}</td>
+            <td>{formatMoney(Number(p.product.price))}</td>
+            <td>{p.quantity}</td>
+            <td>{formatMoney(Number(p.product.price * p.quantity))}</td>
+          </tr>
+        ))}
+      </table>
+    </div>
   ) : (
     <p>You have 0 items in your cart!</p>
   )
 
   return (
     <div>
-      <h2>EGG CART</h2>
-      <div>{view}</div>
-      <button type="button" onClick={() => clear()}>
-        clear cart
+      <div className="cartHeader">
+        <h2>Eggs in your cart</h2>
+      </div>
+      <div>{itemsInCart}</div>
+      <button className="cartButton" type="button" onClick={() => clear()}>
+        Clear Cart
       </button>
+      <p>Total Quantity</p>
       <p>
-        TOTAL ${' '}
-        {cartItem &&
+        TOTAL {formatMoney(Number(total))}
+        {/* {cartItem &&
           cartItem
             .map(p => p.product.price * p.quantity)
-            .reduce((a, b) => a + b, 0)}
+            .reduce((a, b) => a + b, 0)} */}
       </p>
       <Link to="/checkout">
-        <button type="button">Check Out</button>
+        <button type="button" className="cartButton">
+          Check Out
+        </button>
       </Link>
     </div>
   )
