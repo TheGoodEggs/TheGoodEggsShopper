@@ -31,7 +31,6 @@ const addOrder = function(order) {
 
 //add new user
 export const newOrder = function(value) {
-  console.log('VALUE ====>', value)
   return async function(dispatch) {
     const {data} = await axios.post('/api/orders', value)
     try {

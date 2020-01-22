@@ -16,7 +16,6 @@ const isAdmin = (req, res, next) => {
 
 const isUser = (req, res, next) => {
   try {
-    console.log(req.query.params)
     next()
   } catch (error) {
     next(error)

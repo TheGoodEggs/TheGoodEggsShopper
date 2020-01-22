@@ -127,8 +127,15 @@ export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return {...state, currentUser: action.user}
-    case REMOVE_USER: //UPDATE
-      return defaultUser
+    case REMOVE_USER:
+      return {
+        ...state,
+        users: state.users.filter(user => {
+          if (user.id !== action.user.id) {
+            return true
+          }
+        })
+      }
     case ADD_USER:
       return {...state, users: [...state.users, action.users]}
     case USER_ORDERS:
