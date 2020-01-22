@@ -69,9 +69,11 @@ const mapDispatch = dispatch => {
     },
     addWishlist(user) {
       dispatch(addWishlist(user))
+      dispatch(allProductsThunk(user.id))
     },
     removeWishlist(user) {
       dispatch(removeWishlist(user))
+      dispatch(allProductsThunk(user.id))
     },
     addToCartThunk(productId) {
       dispatch(addToCartThunk(productId))
