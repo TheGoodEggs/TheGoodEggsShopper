@@ -22,15 +22,16 @@ class UserHome extends Component {
   render() {
     return (
       <div>
-        <h3>Welcome, {this.props.firstName}!</h3>
-        <div className="UserHome">
-          <Link to="/home/about">About Me</Link>
-          <Link to="/home/orderhistory">Order History</Link>
-        </div>
         <img
           className="home_image"
           src="https://images.unsplash.com/photo-1529589789467-4a12ccb8e5ff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
         />
+        <div className="UserHome">
+          <h2>Welcome, {this.props.firstName}!</h2>
+          <Link to="/home/about">About Me</Link>
+          <Link to="/home/orderhistory">Order History</Link>
+          <hr className="UserHr" />
+        </div>
         <Switch>
           <Route path="/home/about" component={AboutMe} />
           <Route path="/home/orderhistory" component={OrderHistory} />

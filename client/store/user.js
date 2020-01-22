@@ -39,8 +39,8 @@ export const fetchMe = () => {
   return async dispatch => {
     dispatch(setFetchingStatus(true))
     try {
-      const response = await axios.get('/auth/me')
-      dispatch(getUser(response.data))
+      const {data} = await axios.get('/auth/me')
+      dispatch(getUser(data))
     } catch (error) {
       console.error(error)
     } finally {

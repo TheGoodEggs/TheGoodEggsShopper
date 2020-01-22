@@ -8,7 +8,7 @@ class SingleProductContainer extends React.Component {
   constructor() {
     super()
     this.state = {
-      count: 0
+      count: 1
     }
     this.handleChange = this.handleChange.bind(this)
     this.increment = this.increment.bind(this)
@@ -50,7 +50,7 @@ class SingleProductContainer extends React.Component {
           handleIncrement={this.increment}
           handleDecrement={this.decrement}
           cartHandler={this.props.addToCartThunk}
-          resetCount={() => this.setState({count: 0})}
+          resetCount={() => this.setState({count: 1})}
         />
       )
     )
