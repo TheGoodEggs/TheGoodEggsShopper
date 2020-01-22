@@ -1,11 +1,10 @@
 //checks if admin
 const isAdmin = (req, res, next) => {
   try {
-    console.log(req.user)
     if (req.user) {
-      if (req.user.admin) next()
+      if (req.user.admin) return next()
       console.log('Only admin access')
-      return res.status(401).json('Only admin access ')
+      return res.status(401).json('Only admin access')
     } else {
       console.log('Please sign in')
       return res.status(401).json('Please sign in')
@@ -15,10 +14,19 @@ const isAdmin = (req, res, next) => {
   }
 }
 
-const isUser = (req, res, next) => {
+const isUserOrAdmin = (req, res, next) => {
   try {
-    console.log(req.query.params)
-    next()
+    if (req.user) {
+      if (parseInt(req.params.id, 10) === req.user.id) {
+        return next()
+      }
+      if (req.user.admin) return next()
+      console.log('Please sign in with an authorized account')
+      return res.status(401).json('Please sign in with an authorized account')
+    } else {
+      console.log('Please sign in')
+      return res.status(401).json('Please sign in')
+    }
   } catch (error) {
     next(error)
   }
@@ -26,5 +34,5 @@ const isUser = (req, res, next) => {
 
 module.exports = {
   isAdmin,
-  isUser
+  isUserOrAdmin
 }

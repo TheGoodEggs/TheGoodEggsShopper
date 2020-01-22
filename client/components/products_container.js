@@ -10,6 +10,7 @@ class AllProductsContainer extends React.Component {
   componentDidMount() {
     this.props.loadProducts({id: this.props.user.id})
   }
+
   render() {
     return (
       <div className="allProductsdiv">
@@ -68,11 +69,9 @@ const mapDispatch = dispatch => {
     },
     addWishlist(user) {
       dispatch(addWishlist(user))
-      dispatch(allProductsThunk(user.id))
     },
     removeWishlist(user) {
       dispatch(removeWishlist(user))
-      dispatch(allProductsThunk(user.id))
     },
     addToCartThunk(productId) {
       dispatch(addToCartThunk(productId))

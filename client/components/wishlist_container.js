@@ -5,7 +5,6 @@ import AllProducts from './products'
 
 class wishlist extends React.Component {
   componentDidMount() {
-    // need to put the user state
     this.props.getWishlist({id: this.props.user.id})
   }
   render() {

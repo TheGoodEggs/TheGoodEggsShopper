@@ -10,18 +10,32 @@ const REMOVE_USER = 'REMOVE_USER'
 const ADD_USER = 'ADD_USER'
 const UPDATE_USER = 'UPDATE_USER'
 const USER_ORDERS = 'USER_ORDERS'
+const FETCHING = 'FETCHING'
 
 /**
  * INITIAL STATE
  */
 const defaultUser = {
-  users: []
+  users: [],
+  userInfo: {},
+  isFetching: false
 }
 
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
+const fetching = () => {
+  return {
+    type: FETCHING,
+    isFetching: true
+  }
+}
+
+const getUser = user => ({
+  type: GET_USER,
+  user,
+  isFetching: false
+})
 const removeUser = () => ({type: REMOVE_USER})
 const addUser = function(user) {
   return {
@@ -47,8 +61,10 @@ const getUserOrders = function(orders) {
  */
 
 //get user
+
 export const me = () => async dispatch => {
   try {
+    // dispatch(fetching())
     const res = await axios.get('/auth/me')
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
@@ -119,11 +135,23 @@ export const getOrderHistory = function(user) {
   }
 }
 
+// export const fetch = () => async dispatch => {
+//   try {
+
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 /**
  * REDUCER
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
+    case FETCHING:
+      return {
+        ...state,
+        isFetching: action.isFetching
+      }
     case GET_USER:
       return action.user
     case REMOVE_USER:

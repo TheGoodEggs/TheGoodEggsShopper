@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {User, Order, OrderProducts, Wishlist, Product} = require('../db/models')
-const {isAdmin, isUser} = require('./middleware')
+const {isAdmin, isUserOrAdmin} = require('./middleware')
 module.exports = router
 
 //already mounted on /users
@@ -38,7 +38,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.get('/:id/orders', async (req, res, next) => {
+router.get('/:id/orders', isUserOrAdmin, async (req, res, next) => {
   try {
     const allOrders = await Order.findAll({
       where: {
@@ -51,7 +51,7 @@ router.get('/:id/orders', async (req, res, next) => {
   }
 })
 
-router.post('/:id/orders', async (req, res, next) => {
+router.post('/:id/orders', isUserOrAdmin, async (req, res, next) => {
   try {
     const currentOrder = await Order.findCurrentOrder(req.params.id)
     const addedOrder = await OrderProducts.create({
@@ -65,7 +65,7 @@ router.post('/:id/orders', async (req, res, next) => {
   }
 })
 
-router.put('/:id/orders', async (req, res, next) => {
+router.put('/:id/orders', isUserOrAdmin, async (req, res, next) => {
   try {
     const currentOrder = await Order.findCurrentOrder(req.params.id)
     const changedOrder = await OrderProducts.update(
@@ -83,7 +83,7 @@ router.put('/:id/orders', async (req, res, next) => {
   }
 })
 
-router.delete('/:id/orders', async (req, res, next) => {
+router.delete('/:id/orders', isUserOrAdmin, async (req, res, next) => {
   try {
     const currentOrder = await Order.findCurrentOrder(req.params.id)
     const changedOrder = await OrderProducts.destroy({
@@ -98,7 +98,7 @@ router.delete('/:id/orders', async (req, res, next) => {
   }
 })
 
-router.get('/:id/wishlist', async (req, res, next) => {
+router.get('/:id/wishlist', isUserOrAdmin, async (req, res, next) => {
   try {
     const wishlist = await User.findAll({
       where: {
@@ -118,21 +118,25 @@ router.get('/:id/wishlist', async (req, res, next) => {
   }
 })
 
-router.delete('/:id/wishlist/:productId', async (req, res, next) => {
-  try {
-    const deleteCount = await Wishlist.destroy({
-      where: {
-        userId: req.params.id,
-        productId: req.params.productId
-      }
-    })
-    res.json(deleteCount)
-  } catch (error) {
-    next(error)
+router.delete(
+  '/:id/wishlist/:productId',
+  isUserOrAdmin,
+  async (req, res, next) => {
+    try {
+      const deleteCount = await Wishlist.destroy({
+        where: {
+          userId: req.params.id,
+          productId: req.params.productId
+        }
+      })
+      res.json(deleteCount)
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
-router.post('/:id/wishlist', async (req, res, next) => {
+router.post('/:id/wishlist', isUserOrAdmin, async (req, res, next) => {
   try {
     const addCount = await Wishlist.create({
       userId: req.params.id,
@@ -145,7 +149,7 @@ router.post('/:id/wishlist', async (req, res, next) => {
 })
 
 //update user
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isUserOrAdmin, async (req, res, next) => {
   try {
     const foundUser = await User.findById(req.params.id)
     const updatedUser = await foundUser.update({

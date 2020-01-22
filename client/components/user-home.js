@@ -20,7 +20,6 @@ class UserHome extends Component {
   //if about clicked, render about stuff, else, render null
 
   render() {
-    console.log('HERE>>', this.props)
     return (
       <div>
         <h3>Welcome, {this.props.firstName}!</h3>
