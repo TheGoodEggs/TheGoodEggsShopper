@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {singleProductThunk} from '../store/single_product'
 import SingleProductComponent from './single_product'
+import {addToCartThunk} from '../store/cart'
 
 class SingleProductContainer extends React.Component {
   constructor() {
@@ -21,7 +22,7 @@ class SingleProductContainer extends React.Component {
   }
   //work in progress
   increment() {
-    if (this.state.count <= this.props.product.stock) {
+    if (this.state.count < this.props.product.stock) {
       this.setState(previousState => ({
         count: previousState.count + 1
       }))
@@ -48,6 +49,8 @@ class SingleProductContainer extends React.Component {
           count={this.state.count}
           handleIncrement={this.increment}
           handleDecrement={this.decrement}
+          cartHandler={this.props.addToCartThunk}
+          resetCount={() => this.setState({count: 0})}
         />
       )
     )
@@ -64,6 +67,9 @@ const mapDispatch = (dispatch, ownProps) => {
   return {
     loadProduct() {
       dispatch(singleProductThunk(ownProps.match.params.productId))
+    },
+    addToCartThunk(productId, count) {
+      dispatch(addToCartThunk(productId, count))
     }
   }
 }
