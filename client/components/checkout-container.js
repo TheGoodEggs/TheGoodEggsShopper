@@ -43,6 +43,10 @@ class Checkout extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
+    const cartItems = JSON.parse(localStorage.getItem('cart'))
+    const purchaseTotal = cartItems
+      .map(p => p.product.price * p.quantity)
+      .reduce((a, b) => a + b, 0)
     this.props.addOrder({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -50,7 +54,7 @@ class Checkout extends React.Component {
       phone: this.state.phoneNumber,
       address: this.state.shippingAddress,
       userId: this.props.user.id,
-      purchasedTotal: 999
+      purchasedTotal: purchaseTotal
     })
     history.push('/thankyou')
   }
