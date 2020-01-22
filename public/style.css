@@ -320,3 +320,15 @@ h2 {
 .emptyCartMsg {
   text-align: center;
 }
+
+.historyZero {
+  text-align: center;
+  margin-bottom: 300px;
+}
+
+.ShopNowButton {
+  width: 120px;
+  height: 40px;
+  background-color: orangered;
+  color: white;
+}
