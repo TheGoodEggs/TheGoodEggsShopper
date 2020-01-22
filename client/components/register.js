@@ -7,7 +7,6 @@ class Register extends Component {
   constructor() {
     super()
     this.state = {
-      //hitting submit collects this, back end route creates user
       firstName: '',
       lastName: '',
       email: '',
@@ -19,11 +18,6 @@ class Register extends Component {
     this.submitHelper = this.submitHelper.bind(this)
   }
 
-  // handleSubmit() {
-  //   this.props.onLoad({
-  //     name: this.props.firstName
-  //   })
-  // }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
