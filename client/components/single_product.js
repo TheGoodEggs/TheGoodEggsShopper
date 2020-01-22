@@ -9,7 +9,7 @@ const SingleProductComponent = props => {
         <h2>{props.product.name}</h2>
         <ul>
           <img src={props.product.image} />
-          <li>Product Price: {formatMoney(Number(props.product.price))}</li>
+          <li>Price: {formatMoney(Number(props.product.price))}</li>
           <li>About: {props.product.description}</li>
         </ul>
         <div>

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import AllProducts from './products'
+import {formatMoney} from '../utils'
 
 const Cart = ({products, total, clear}) => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))
@@ -10,7 +11,7 @@ const Cart = ({products, total, clear}) => {
       <div key={p.id}>
         <p>name : {p.product.name}</p>
         <img src={p.product.image} />
-        <p>price : ${p.product.price / 100}</p>
+        <p>price : {formatMoney(Number(p.product.price))}</p>
         <p>quantity : {p.quantity}</p>
       </div>
     ))
@@ -29,7 +30,7 @@ const Cart = ({products, total, clear}) => {
         TOTAL ${' '}
         {cartItem &&
           cartItem
-            .map(p => p.product.price / 100 * p.quantity)
+            .map(p => p.product.price * p.quantity)
             .reduce((a, b) => a + b, 0)}
       </p>
       <Link to="/checkout">

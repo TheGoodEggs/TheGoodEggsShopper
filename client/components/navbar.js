@@ -31,7 +31,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/signup">Sign Up</Link>
           <div className="navright">
             <Link to="/products">Shop</Link>
-            <Link to="/wishlist">Wishlist</Link>
             <Link to="/cart">
               <i className="fa fa-shopping-cart fa-2x" />
             </Link>
