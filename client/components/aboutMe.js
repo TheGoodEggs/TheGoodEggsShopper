@@ -4,17 +4,21 @@ import {connect} from 'react-redux'
 class AboutMe extends Component {
   render() {
     return (
-      <div>
-        <h4>Name:</h4>
+      <div className="aboutme">
         <p>
+          {' '}
+          <strong>Name: </strong> &nbsp;
           {this.props.firstName} {this.props.lastName}
         </p>
-        <h4>Email:</h4>
-        <p>{this.props.email}</p>
-        <h4>Address:</h4>
-        <p>{this.props.address}</p>
-        <h4>Phone:</h4>
-        <p>{this.props.phone}</p>
+        <p>
+          <strong>Email: </strong> &nbsp; {this.props.email}
+        </p>
+        <p>
+          <strong>Address: </strong> &nbsp; {this.props.address}
+        </p>
+        <p>
+          <strong>Phone: </strong> &nbsp; {this.props.phone}
+        </p>
       </div>
     )
   }
