@@ -8,7 +8,7 @@ import Cart from './'
 
 class AllProductsContainer extends React.Component {
   componentDidMount() {
-    this.props.loadProducts({id: this.props.user.id})
+    this.props.loadProducts()
   }
 
   render() {

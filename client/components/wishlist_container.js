@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getWishlist, removeWishlist} from '../store/wishlist'
-import AllProducts from './products'
+import AllWishlist from './wishlist'
 
 class wishlist extends React.Component {
   componentDidMount() {
@@ -13,7 +13,7 @@ class wishlist extends React.Component {
         {this.props.wishlist.map(product => {
           const {name, price, description, image, id} = product
           return (
-            <AllProducts
+            <AllWishlist
               key={id}
               item={{name, price, description, image, wishlist: true, id}}
               wishlistHandler={{remove: this.props.removeWishlist}}
@@ -44,7 +44,6 @@ const mapDispatchToProps = dispatch => {
     },
     removeWishlist(user) {
       dispatch(removeWishlist(user))
-      dispatch(getWishlist(user))
     }
   }
 }
