@@ -9,21 +9,19 @@ class OrderHistory extends Component {
   }
 
   render() {
-    return this.props.orders.length > 1 ? ( //if the user has orders
-      
-        
-    return (
+    return this.props.orders.length > 1 ? (
       <div className="orderhistory">
         <p>Eggs you've purchased:</p>
         {this.props.orders.map(function(currentOrder) {
           return (
-            <ul key={currentOrder.id}>
-              <div>
-                <ul>Order ID: {currentOrder.id}</ul>
-                <ul>Total: ${currentOrder.purchasedTotal}</ul>
-                <ul>Tracking Code: {currentOrder.tracking}</ul>
-              </div>
-            </ul>
+            <div key={currentOrder.id}>
+              <p>
+                Order ID: {currentOrder.id} Total: ${
+                  currentOrder.purchasedTotal
+                }
+              </p>
+              {/* <ul>Tracking Code: {currentOrder.tracking}</ul> */}
+            </div>
           )
         })}
       </div>

@@ -13,6 +13,12 @@ const CheckoutForm = props => {
     creditCard
   } = props.userInfo
   let total
+  let quant
+  if (cartItem) {
+    quant = cartItem.map(p => p.quantity).reduce((a, b) => a + b, 0)
+  } else {
+    quant = 0
+  }
   if (cartItem) {
     total = cartItem
       .map(p => p.product.price * p.quantity)
@@ -50,8 +56,10 @@ const CheckoutForm = props => {
       <br />
       <br />
       <br />
-
-      <h3> Total: $ {formatMoney(Number(total))}</h3>
+      <div className="cartTotal">
+        <p>Total Quantity: {quant}</p>
+        <p>Total Amount: {formatMoney(Number(total))}</p>
+      </div>
 
       {/* {cartItem &&
           cartItem
@@ -64,58 +72,78 @@ const CheckoutForm = props => {
       <br />
       <br />
 
-      <form id="checkout" onSubmit={props.handleSubmit}>
-        <label>First Name</label>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="First Name"
-          value={firstName}
-          onChange={props.handleChange}
-        />
-        <label>Last Name</label>
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={props.handleChange}
-        />
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={props.handleChange}
-        />
-        <label>Shipping Address</label>
-        <input
-          type="text"
-          name="shippingAddress"
-          placeholder="Shipping Address"
-          value={shippingAddress}
-          onChange={props.handleChange}
-        />
-        <label>Phone Number</label>
-        <input
-          type="text"
-          name="phoneNumber"
-          placeholder="(999)999-9999"
-          value={phoneNumber}
-          onChange={props.handleChange}
-        />
-        <label>Credit Card</label>
-        <input
-          type="text"
-          name="creditCard"
-          placeholder="####-####-####-####"
-          value={creditCard}
-          onChange={props.handleChange}
-        />
-        <button type="submit" form="checkout">
-          Submit
-        </button>
+      <form
+        className="form-style-7"
+        id="checkout"
+        onSubmit={props.handleSubmit}
+      >
+        <ul>
+          <li>
+            <label>First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={firstName}
+              onChange={props.handleChange}
+            />
+          </li>
+          <li>
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={props.handleChange}
+            />
+          </li>
+          <li>
+            <label>Email</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={props.handleChange}
+            />
+          </li>
+          <li>
+            <label>Shipping Address</label>
+            <input
+              type="text"
+              name="shippingAddress"
+              placeholder="Shipping Address"
+              value={shippingAddress}
+              onChange={props.handleChange}
+            />
+          </li>
+          <li>
+            <label>Phone Number</label>
+            <input
+              type="text"
+              name="phoneNumber"
+              placeholder="(999)999-9999"
+              value={phoneNumber}
+              onChange={props.handleChange}
+            />
+          </li>
+          <li>
+            <label>Credit Card</label>
+            <input
+              type="text"
+              name="creditCard"
+              placeholder="####-####-####-####"
+              value={creditCard}
+              onChange={props.handleChange}
+            />
+          </li>
+          <li>
+            <button className="submitButton" type="submit" form="checkout">
+              Place Order
+            </button>
+          </li>
+        </ul>
       </form>
     </div>
   )
