@@ -4,6 +4,7 @@ const Order = require('../db/models/order')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
+  console.log('I AM HERE')
   try {
     const user = await User.findOne({where: {email: req.body.email}})
     if (!user) {
@@ -27,12 +28,10 @@ router.post('/signup', async (req, res, next) => {
     // const createOrder = await Order.create(req.body)
     // createOrder.userId = user.id
     // await createOrder.save()
-    console.log('about to login >>>>>>>>>>>')
     req.login(user, err => {
       if (err) {
         next(err)
       } else {
-        console.log('REDIRECTING >>>>>')
         res.redirect('/')
       }
     })

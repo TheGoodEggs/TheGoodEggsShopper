@@ -1,12 +1,6 @@
 import React, {Component} from 'react'
 
 class ThankYou extends Component {
-  // flipAbout(event) {
-  //   event.preventDefault()
-  //   this.setState({...this.state, about: !this.state.about})
-  // }
-  //if about clicked, render about stuff, else, render null
-
   render() {
     return (
       <div>

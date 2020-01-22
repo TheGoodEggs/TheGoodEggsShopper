@@ -11,14 +11,14 @@ const gotWishlist = arr => {
 
 export const getWishlist = user => {
   return async dispatch => {
-    const {data} = await axios.get(`./api/users/${user.id}/wishlist`)
+    const {data} = await axios.get(`/api/users/${user.id}/wishlist`)
     dispatch(gotWishlist(data))
   }
 }
 
 export const addWishlist = user => {
   return async dispatch => {
-    await axios.post(`./api/users/${user.id}/wishlist`, {
+    await axios.post(`/api/users/${user.id}/wishlist`, {
       productId: user.productId
     })
     dispatch(getWishlist(user))
@@ -27,7 +27,7 @@ export const addWishlist = user => {
 
 export const removeWishlist = user => {
   return async dispatch => {
-    await axios.delete(`./api/users/${user.id}/wishlist/${user.productId}`)
+    await axios.delete(`/api/users/${user.id}/wishlist/${user.productId}`)
     dispatch(getWishlist(user))
   }
 }
