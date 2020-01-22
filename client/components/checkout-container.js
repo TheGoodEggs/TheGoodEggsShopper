@@ -53,7 +53,7 @@ class Checkout extends React.Component {
       email: this.state.email,
       phone: this.state.phoneNumber,
       address: this.state.shippingAddress,
-      userId: this.props.user.id,
+      userId: this.props.user.currentuser.id,
       purchasedTotal: purchaseTotal
     })
     history.push('/thankyou')

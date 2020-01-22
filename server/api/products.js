@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Product, Category} = require('../db/models')
-const {isAdmin, isUser} = require('./middleware')
+const {isAdmin} = require('./middleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -32,8 +32,6 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
-
-router.get('/')
 
 router.get('/:productId', async (req, res, next) => {
   try {
