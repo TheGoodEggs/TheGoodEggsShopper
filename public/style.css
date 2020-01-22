@@ -80,6 +80,18 @@ button.submitButton {
   padding: 50px;
 }
 
+.allWishOutDiv {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 30px;
+}
+
+.allWishInnerDiv {
+  padding: 50px;
+}
+
 .navbar {
   background-color: orangered;
   overflow: hidden;
