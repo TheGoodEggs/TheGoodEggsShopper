@@ -29,9 +29,11 @@ class UserHome extends Component {
         />
         <div className="UserHome">
           <h2>Welcome, {this.props.firstName}!</h2>
-          <Link to="/home/about">About Me</Link>
-          <Link to="/home/orderhistory">Order History</Link>
-          <hr className="UserHr" />
+          <div className="userHomeNav">
+            <Link to="/home/about">About Me</Link>
+            <Link to="/home/orderhistory">Order History</Link>
+            <hr className="UserHr" />
+          </div>
         </div>
         <Switch>
           <Route path="/home/about" component={AboutMe} />

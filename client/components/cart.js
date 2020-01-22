@@ -7,6 +7,8 @@ import {formatMoney} from '../utils'
 const Cart = ({products, clear}) => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))
   let total
+  let quant
+
   if (cartItem) {
     total = cartItem
       .map(p => p.product.price * p.quantity)
@@ -14,6 +16,13 @@ const Cart = ({products, clear}) => {
   } else {
     total = 0
   }
+
+  if (cartItem) {
+    quant = cartItem.map(p => p.quantity).reduce((a, b) => a + b, 0)
+  } else {
+    quant = 0
+  }
+
   const itemsInCart = cartItem ? (
     <div>
       <table>
@@ -48,22 +57,24 @@ const Cart = ({products, clear}) => {
         <h2>Eggs in your cart</h2>
       </div>
       <div>{itemsInCart}</div>
-      <button className="cartButton" type="button" onClick={() => clear()}>
-        Clear Cart
-      </button>
-      <p>Total Quantity</p>
-      <p>
-        TOTAL {formatMoney(Number(total))}
-        {/* {cartItem &&
+      <div className="cartTotal">
+        <p>Total Quantity: {quant}</p>
+        <p>
+          Total Amount: {formatMoney(Number(total))}
+          {/* {cartItem &&
           cartItem
             .map(p => p.product.price * p.quantity)
             .reduce((a, b) => a + b, 0)} */}
-      </p>
-      <Link to="/checkout">
-        <button type="button" className="cartButton">
-          Check Out
+        </p>
+        <button className="cartButton" type="button" onClick={() => clear()}>
+          Clear Cart
         </button>
-      </Link>
+        <Link to="/checkout">
+          <button type="button" className="cartButton">
+            Check Out
+          </button>
+        </Link>
+      </div>
     </div>
   )
 }

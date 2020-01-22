@@ -16,13 +16,15 @@ const SingleProductComponent = props => {
         <p>Price: {formatMoney(Number(props.product.price))}</p>
         <p>About: {props.product.description}</p>
         <div>
-          <button type="button" onClick={() => props.handleIncrement()}>
-            +
-          </button>
-          <button type="button">{props.count}</button>
           <button type="button" onClick={() => props.handleDecrement()}>
             -
           </button>
+          <button type="button">{props.count}</button>
+
+          <button type="button" onClick={() => props.handleIncrement()}>
+            +
+          </button>
+
           <button
             type="button"
             onClick={() => {
