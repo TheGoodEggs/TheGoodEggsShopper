@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {formatMoney} from '../utils'
+import wishlist from '../store/wishlist'
+import {connect} from 'react-redux'
 
 class AllProducts extends React.Component {
   constructor() {
@@ -52,7 +54,10 @@ class AllProducts extends React.Component {
         >
           <i className="fa fa-shopping-cart fa-2x" />
         </button>
-        {!this.props.item.wishlist ? (
+
+        {!this.props.user.userId ? (
+          <div />
+        ) : !this.props.wishlist.wishlistMap[this.props.item.id] ? (
           <button
             type="button"
             onClick={() =>
@@ -83,4 +88,10 @@ class AllProducts extends React.Component {
   }
 }
 
-export default AllProducts
+const mapState = state => {
+  return {
+    wishlist: state.wishlist
+  }
+}
+
+export default connect(mapState)(AllProducts)

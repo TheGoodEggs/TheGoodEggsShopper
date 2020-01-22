@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {formatMoney} from '../utils'
 
 const SingleProductComponent = props => {
-  console.log('props.product.id =======>', props.product)
   return (
     props.product && (
       <div>

@@ -13,7 +13,8 @@ import {
   Checkout,
   ThankYou
 } from './components'
-import {me} from './store'
+import {me, fetchMe} from './store'
+import {getWishList} from './store/wishlist'
 import registerContainer from './components/register'
 
 /**
@@ -26,34 +27,38 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn} = this.props
-    // console.log(this.props.user.fetching)
-    // if (!this.props.user.fetching)
+    if (!this.props.user.isFetching)
+      return (
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+          <Route exact path="/products" component={AllProductsContainer} />
+          <Route
+            exact
+            path="/products/:productId"
+            component={SingleProductContainer}
+          />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/register" component={registerContainer} />
+          <Route exact path="/wishlist" component={Wishlist} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/checkout" component={Checkout} />
+          <Route exact path="/thankyou" component={ThankYou} />
+          {isLoggedIn && (
+            <Switch>
+              {/* Routes placed here are only available after logging in */}
+              <Route path="/wishlist" component={Wishlist} />
+              <Route path="/home" component={UserHome} />
+            </Switch>
+          )}
+          {/* Displays our Login component as a fallback */}
+          <Route component={Login} />
+        </Switch>
+      )
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route exact path="/products" component={AllProductsContainer} />
-        <Route
-          exact
-          path="/products/:productId"
-          component={SingleProductContainer}
-        />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/register" component={registerContainer} />
-        <Route exact path="/wishlist" component={Wishlist} />
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/checkout" component={Checkout} />
-        <Route exact path="/thankyou" component={ThankYou} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/wishlist" component={Wishlist} />
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
-      </Switch>
+      <div>
+        <h1>Fetching user information</h1>
+      </div>
     )
   }
 }
@@ -65,7 +70,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.currentUser.id,
     user: state.user
   }
 }
@@ -73,7 +78,10 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadInitialData() {
-      dispatch(me())
+      dispatch(fetchMe())
+    },
+    getWishList() {
+      dispatch(getWishList())
     }
   }
 }

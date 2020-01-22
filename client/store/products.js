@@ -54,19 +54,9 @@ const incrementProductStock = (product, count) => ({
 /**
  * THUNK CREATORS
  */
-export const allProductsThunk = user => async dispatch => {
+export const allProductsThunk = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/products')
-    if (user) {
-      const wishlist = await axios.get(`./api/users/${user}/wishlist`)
-      let wishlistMap = {}
-      wishlist.data.forEach(element => {
-        if (!wishlistMap[element.id]) wishlistMap[element.id] = true
-      })
-      data.forEach((element, i) => {
-        if (wishlistMap[element.id]) data[i].wishlist = true
-      })
-    }
     dispatch(allProducts(data))
   } catch (err) {
     console.error(err)

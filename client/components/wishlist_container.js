@@ -5,21 +5,27 @@ import AllWishlist from './wishlist'
 
 class wishlist extends React.Component {
   componentDidMount() {
-    this.props.getWishlist({id: this.props.user.id})
+    if (this.props.user.currentUser.id) {
+      this.props.getWishlist(this.props.user.currentUser.id)
+    }
   }
   render() {
-    return this.props.wishlist.length >= 1 ? (
+    return this.props.wishlist.wishlistMap.size >= 1 ? (
       <div>
-        {this.props.wishlist.map(product => {
-          const {name, price, description, image, id} = product
-          return (
-            <AllWishlist
-              key={id}
-              item={{name, price, description, image, wishlist: true, id}}
-              wishlistHandler={{remove: this.props.removeWishlist}}
-              user={{userId: this.props.user.id}}
-            />
-          )
+        {Object.entries(this.props.wishlist.wishlistMap).map(product => {
+          console.log(product[0])
+
+          if (product[0] !== 'size') {
+            const {name, price, description, image, id} = product[1]
+            return (
+              <AllWishlist
+                key={id}
+                item={{name, price, description, image, wishlist: true, id}}
+                wishlistHandler={{remove: this.props.removeWishlist}}
+                user={{userId: this.props.user.currentUser.id}}
+              />
+            )
+          }
         })}
       </div>
     ) : (
@@ -39,11 +45,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getWishlist: user => {
-      dispatch(getWishlist(user))
+    getWishlist: userId => {
+      dispatch(getWishlist(userId))
     },
-    removeWishlist(user) {
-      dispatch(removeWishlist(user))
+    removeWishlist(userId) {
+      dispatch(removeWishlist(userId))
     }
   }
 }

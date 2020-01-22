@@ -1,13 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {allProductsThunk} from '../store/products'
-import {addWishlist, removeWishlist} from '../store/wishlist'
+import {addWishlist, removeWishlist, getWishlist} from '../store/wishlist'
 import {addToCartThunk} from '../store/cart'
 import AllProducts from './products'
 import Cart from './'
 
 class AllProductsContainer extends React.Component {
   componentDidMount() {
+    if (this.props.user.currentUser.id) {
+      this.props.getWishlist(this.props.user.currentUser.id)
+    }
     this.props.loadProducts()
   }
 
@@ -15,16 +18,7 @@ class AllProductsContainer extends React.Component {
     return (
       <div className="allProductsdiv">
         {this.props.products.map(product => {
-          const {
-            name,
-            price,
-            origin,
-            description,
-            image,
-            wishlist,
-            id,
-            stock
-          } = product
+          const {name, price, origin, description, image, id, stock} = product
           return (
             <AllProducts
               key={id}
@@ -34,7 +28,6 @@ class AllProductsContainer extends React.Component {
                 origin,
                 description,
                 image,
-                wishlist,
                 id,
                 stock
               }}
@@ -43,7 +36,7 @@ class AllProductsContainer extends React.Component {
                 remove: this.props.removeWishlist
               }}
               cartHandler={this.props.addToCartThunk}
-              user={{userId: this.props.user.id}}
+              user={{userId: this.props.user.currentUser.id}}
             />
           )
         })}
@@ -62,19 +55,20 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadProducts(user) {
-      dispatch(allProductsThunk(user.id))
+    loadProducts() {
+      dispatch(allProductsThunk())
     },
     addWishlist(user) {
       dispatch(addWishlist(user))
-      dispatch(allProductsThunk(user.id))
     },
     removeWishlist(user) {
       dispatch(removeWishlist(user))
-      dispatch(allProductsThunk(user.id))
     },
     addToCartThunk(productId, count) {
       dispatch(addToCartThunk(productId, count))
+    },
+    getWishlist(userId) {
+      dispatch(getWishlist(userId))
     }
   }
 }
