@@ -42,9 +42,7 @@ class AllProductsContainer extends React.Component {
                 add: this.props.addWishlist,
                 remove: this.props.removeWishlist
               }}
-              cartHandler={{
-                add: this.props.addToCartThunk
-              }}
+              cartHandler={this.props.addToCartThunk}
               user={{userId: this.props.user.id}}
             />
           )
@@ -75,8 +73,8 @@ const mapDispatch = dispatch => {
       dispatch(removeWishlist(user))
       dispatch(allProductsThunk(user.id))
     },
-    addToCartThunk(productId) {
-      dispatch(addToCartThunk(productId))
+    addToCartThunk(productId, count) {
+      dispatch(addToCartThunk(productId, count))
     }
   }
 }
