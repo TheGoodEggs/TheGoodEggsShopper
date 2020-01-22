@@ -9,8 +9,8 @@ class OrderHistory extends Component {
 
   render() {
     return (
-      <div>
-        <h4>Here are your the eggs you purchased</h4>
+      <div className="orderhistory">
+        <p>Eggs you've purchased:</p>
         {/* map through all the user's orders to display */}
         {/* <ul>{this.props.orders}</ul> */}
         {/* {this.props.orders.map(function(currentOrder) {
