@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {User, Order, OrderProducts, Wishlist, Product} = require('../db/models')
-const isAdmin = require('./middleware')
+const {isAdmin, isUser} = require('./middleware')
 module.exports = router
 
 //already mounted on /users

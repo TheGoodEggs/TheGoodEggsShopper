@@ -20,9 +20,10 @@ if (localStorage.getItem('cart')) {
 
 // ACTION CREATORS
 
-export const addToCart = product => ({
+export const addToCart = (product, count) => ({
   type: ADD_TO_CART,
-  product
+  product,
+  count
 })
 
 export const getCart = () => ({
@@ -38,35 +39,36 @@ export const removefromCart = product => ({
   product
 })
 
-export const addToCartThunk = productId => {
+export const addToCartThunk = (productId, count) => {
   return async dispatch => {
     const {data} = await axios.get(`/api/products/${productId}`)
-    dispatch(addToCart(data))
+    dispatch(addToCart(data, count))
   }
 }
 
 // REDUCER
 
 export default function(state = cartState, action) {
-  let products, findId
   switch (action.type) {
-    case ADD_TO_CART:
-      findId = state.findIndex(item => item.id === action.product.id)
+    case ADD_TO_CART: {
+      let products
+      const findId = state.findIndex(item => item.id === action.product.id)
       if (findId !== -1) {
         products = state
-        products[findId].quantity += 1
+        products[findId].quantity += action.count
       } else {
         products = state.concat([
           {
             id: action.product.id,
             product: action.product,
-            quantity: 1
+            quantity: action.count
           }
         ])
       }
       localStorage.setItem('cart', JSON.stringify(products))
       // history.push('/cart')
       return products
+    }
     case CLEAR_CART:
       localStorage.removeItem('cart')
       history.push('/cart')

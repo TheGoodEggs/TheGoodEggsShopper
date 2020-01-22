@@ -4,13 +4,26 @@ const isAdmin = (req, res, next) => {
     if (req.user) {
       if (req.user.admin) next()
       console.log('Only admin access')
-      return res.status(300).json('Only admin access ')
+      return res.status(401).json('Only admin access ')
     } else {
       console.log('Please sign in')
-      return res.status(400).json('Please sign in')
+      return res.status(401).json('Please sign in')
     }
   } catch (error) {
     next(error)
   }
 }
-module.exports = isAdmin
+
+const isUser = (req, res, next) => {
+  try {
+    console.log(req.query.params)
+    next()
+  } catch (error) {
+    next(error)
+  }
+}
+
+module.exports = {
+  isAdmin,
+  isUser
+}

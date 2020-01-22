@@ -28,7 +28,7 @@ const CheckoutForm = props => {
                 <td>{p.id}</td>
                 <td>{p.product.name}</td>
                 <td>{p.quantity}</td>
-                <td>$ {p.product.price / 100}</td>
+                <td>$ {p.product.price}</td>
               </tr>
             ))}
         </tbody>
@@ -37,7 +37,7 @@ const CheckoutForm = props => {
         Total: ${cartItem &&
           cartItem
             .map(p => p.product.price * p.quantity)
-            .reduce((a, b) => a + b, 0) / 100}{' '}
+            .reduce((a, b) => a + b, 0)}{' '}
       </h3>
       <br />
       <br />
@@ -73,7 +73,7 @@ const CheckoutForm = props => {
         <label>Shipping Address</label>
         <input
           type="text"
-          name="address"
+          name="shippingAddress"
           placeholder="Shipping Address"
           value={shippingAddress}
           onChange={props.handleChange}
@@ -81,7 +81,7 @@ const CheckoutForm = props => {
         <label>Phone Number</label>
         <input
           type="text"
-          name="phone"
+          name="phoneNumber"
           placeholder="(999)999-9999"
           value={phoneNumber}
           onChange={props.handleChange}

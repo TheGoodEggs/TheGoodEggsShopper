@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import AllProducts from './products'
+import {formatMoney} from '../utils'
 
 const Cart = ({products, total, clear}) => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))
@@ -10,15 +11,11 @@ const Cart = ({products, total, clear}) => {
       <div key={p.id}>
         <p>name : {p.product.name}</p>
         <img src={p.product.image} />
-        <p>price : ${p.product.price / 100}</p>
+        <p>price : {formatMoney(Number(p.product.price))}</p>
         <p>quantity : {p.quantity}</p>
       </div>
     ))
   ) : (
-    // <div>
-    //   <p>EGG ====> {cartItem[0].product.name}</p>
-    //   <p>$$$ ====> {cartItem[0].product.price}</p>
-    // </div>
     <p>You have 0 items in your cart!</p>
   )
 

@@ -9,7 +9,7 @@ class wishlist extends React.Component {
     this.props.getWishlist({id: this.props.user.id})
   }
   render() {
-    return (
+    return this.props.wishlist.length >= 1 ? (
       <div>
         {this.props.wishlist.map(product => {
           const {name, price, description, image, id} = product
@@ -18,9 +18,14 @@ class wishlist extends React.Component {
               key={id}
               item={{name, price, description, image, wishlist: true, id}}
               wishlistHandler={{remove: this.props.removeWishlist}}
+              user={{userId: this.props.user.id}}
             />
           )
         })}
+      </div>
+    ) : (
+      <div>
+        <h1>Your wishlist is currently empty</h1>
       </div>
     )
   }
