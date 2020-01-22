@@ -8,10 +8,6 @@ import OrderHistory from './orderHistory'
  * COMPONENT
  */
 
-//props
-
-// const {firstName, lastName, email, address, phone} = props
-
 class UserHome extends Component {
   render() {
     return (
@@ -28,7 +24,7 @@ class UserHome extends Component {
         <Switch>
           <Route path="/home/about" component={AboutMe} />
           <Route path="/home/orderhistory" component={OrderHistory} />
-        </Switch>`
+        </Switch>
       </div>
     )
   }

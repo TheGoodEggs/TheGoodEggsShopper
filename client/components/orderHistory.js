@@ -1,27 +1,30 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import getOrderHistory from '../store/user.js'
+import {getOrderHistory} from '../store/user.js'
 
 class OrderHistory extends Component {
-  //   componentDidMount() {
-  //     this.props.loadUserOrders(this.props.currentUser.id)
-  //   }
+  componentDidMount() {
+    this.props.loadUserOrders(this.props.currentUser.id)
+  }
 
   render() {
-    console.log('PROPS', this.props.currentUser.id)
-    return (
+    return this.props.orders.length > 1 ? (
       <div>
-        <h4>Here are your the eggs you purchased</h4>
-        {/* map through all the user's orders to display */}
-        {/* <ul>{this.props.orders}</ul> */}
-        {/* {this.props.orders.map(function(currentOrder) {
+        <h4>Here are the eggs you purchased!</h4>
+        {this.props.orders.map(function(currentOrder) {
           return (
             <ul key={currentOrder.id}>
-              <div>{this.props.orders.id}</div>
+              <div>
+                <ul>Order ID: {currentOrder.id}</ul>
+                <ul>Total: ${currentOrder.purchasedTotal}</ul>
+                <ul>Tracking Code: {currentOrder.tracking}</ul>
+              </div>
             </ul>
           )
-        })} */}
+        })}
       </div>
+    ) : (
+      <h4> You have no past orders! Shop now! </h4>
     )
   }
 }

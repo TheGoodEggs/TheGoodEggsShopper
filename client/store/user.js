@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import connectedRegister from '../components/register'
+import {log} from 'util'
 
 /**
  * ACTION TYPES
@@ -61,7 +61,7 @@ export const me = () => async dispatch => {
 export const newUser = function(userInfo) {
   return async function(dispatch) {
     try {
-      const {data} = await axios.post('/api/users', userInfo) //takes an object, req.body is backend
+      const {data} = await axios.post('/api/users', userInfo)
       dispatch(addUser(data))
     } catch (error) {
       console.error(error)
@@ -139,7 +139,7 @@ export default function(state = defaultUser, action) {
     case ADD_USER:
       return {...state, users: [...state.users, action.users]}
     case USER_ORDERS:
-      return {...state, orders: [...state.orders, action.receivedOrders]}
+      return {...state, orders: [...state.orders, ...action.receivedOrders]}
     default:
       return state
   }
