@@ -74,7 +74,6 @@ class Checkout extends React.Component {
           paymentType: this.state.paymentType
         }}
       />
-      // <div></div>
     )
   }
 }

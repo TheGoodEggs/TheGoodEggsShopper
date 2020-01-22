@@ -26,11 +26,11 @@ class AboutMe extends Component {
 
 const mapState = state => {
   return {
-    firstName: state.user.firstName,
-    lastName: state.user.lastName,
-    email: state.user.email,
-    address: state.user.address,
-    phone: state.user.phone
+    firstName: state.user.currentUser.firstName,
+    lastName: state.user.currentUser.lastName,
+    email: state.user.currentUser.email,
+    address: state.user.currentUser.address,
+    phone: state.user.currentUser.phone
   }
 }
 

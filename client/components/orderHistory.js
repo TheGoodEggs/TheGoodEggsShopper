@@ -1,25 +1,37 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import getOrderHistory from '../store/user.js'
+import {getOrderHistory} from '../store/user.js'
+import {Link} from 'react-router-dom'
 
 class OrderHistory extends Component {
-  //   componentDidMount() {
-  //     this.props.loadUserOrders()
-  //   }
+  componentDidMount() {
+    this.props.loadUserOrders(this.props.currentUser.id)
+  }
 
   render() {
+    return this.props.orders.length > 1 ? ( //if the user has orders
+      
+        
     return (
       <div className="orderhistory">
         <p>Eggs you've purchased:</p>
-        {/* map through all the user's orders to display */}
-        {/* <ul>{this.props.orders}</ul> */}
-        {/* {this.props.orders.map(function(currentOrder) {
+        {this.props.orders.map(function(currentOrder) {
           return (
             <ul key={currentOrder.id}>
-              <div>{this.props.orders.id}</div>
+              <div>
+                <ul>Order ID: {currentOrder.id}</ul>
+                <ul>Total: ${currentOrder.purchasedTotal}</ul>
+                <ul>Tracking Code: {currentOrder.tracking}</ul>
+              </div>
             </ul>
           )
-        })} */}
+        })}
+      </div>
+    ) : (
+      //if they don't, link them to the products page
+      <div>
+        <h4> You have no past orders! </h4>
+        <Link to="/products">Shop Now</Link>
       </div>
     )
   }
@@ -27,14 +39,15 @@ class OrderHistory extends Component {
 
 const mapState = function(state) {
   return {
-    orders: state.getUserOrders
+    orders: state.user.orders,
+    currentUser: state.user.currentUser
   }
 }
 
 const mapDispatch = function(dispatch) {
   return {
-    loadUserOrders: function(orders) {
-      dispatch(getOrderHistory(orders))
+    loadUserOrders: function(id) {
+      dispatch(getOrderHistory(id))
     }
   }
 }

@@ -8,19 +8,8 @@ import OrderHistory from './orderHistory'
  * COMPONENT
  */
 
-//props
-
-// const {firstName, lastName, email, address, phone} = props
-
 class UserHome extends Component {
-  // flipAbout(event) {
-  //   event.preventDefault()
-  //   this.setState({...this.state, about: !this.state.about})
-  // }
-  //if about clicked, render about stuff, else, render null
-
   render() {
-    console.log('HERE>>', this.props)
     return (
       <div>
         <img
@@ -38,7 +27,7 @@ class UserHome extends Component {
         <Switch>
           <Route path="/home/about" component={AboutMe} />
           <Route path="/home/orderhistory" component={OrderHistory} />
-        </Switch>`
+        </Switch>
       </div>
     )
   }
@@ -49,19 +38,12 @@ class UserHome extends Component {
  */
 const mapState = state => {
   return {
-    firstName: state.user.firstName,
-    lastName: state.user.lastName,
-    email: state.user.email,
-    address: state.user.address,
-    phone: state.user.phone
+    firstName: state.user.currentUser.firstName,
+    lastName: state.user.currentUser.lastName,
+    email: state.user.currentUser.email,
+    address: state.user.currentUser.address,
+    phone: state.user.currentUser.phone
   }
 }
 
 export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- //  */
-// UserHome.propTypes = {
-//   email: PropTypes.string
-// }

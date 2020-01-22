@@ -50,8 +50,6 @@ router.get('/:productId', async (req, res, next) => {
   }
 })
 
-// make sure only admins can add/update and delete
-
 router.delete('/:productId', isAdmin, async (req, res, next) => {
   try {
     const productId = req.params.productId
