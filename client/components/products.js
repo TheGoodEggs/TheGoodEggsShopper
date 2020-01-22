@@ -71,7 +71,7 @@ class AllProducts extends React.Component {
                 })
               }
             >
-              <i className="fa fa-heart" />
+              <i className="fa fa-heart-o" />
             </button>
           ) : (
             <button
@@ -84,7 +84,7 @@ class AllProducts extends React.Component {
               }
             >
               {' '}
-              <i className="fa fa-heart-o" />{' '}
+              <i className="fa fa-heart" />{' '}
             </button>
           )}
         </div>

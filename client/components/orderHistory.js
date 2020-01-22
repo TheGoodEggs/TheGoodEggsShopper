@@ -27,9 +27,14 @@ class OrderHistory extends Component {
       </div>
     ) : (
       //if they don't, link them to the products page
-      <div>
+      <div className="historyZero">
         <h4> You have no past orders! </h4>
-        <Link to="/products">Shop Now</Link>
+
+        <Link to="/products">
+          <button type="button" className="ShopNowButton">
+            <strong>Shop Now </strong>
+          </button>
+        </Link>
       </div>
     )
   }
