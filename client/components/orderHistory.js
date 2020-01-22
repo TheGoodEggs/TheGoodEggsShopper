@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getOrderHistory} from '../store/user.js'
+import {Link} from 'react-router-dom'
 
 class OrderHistory extends Component {
   componentDidMount() {
@@ -8,7 +9,7 @@ class OrderHistory extends Component {
   }
 
   render() {
-    return this.props.orders.length > 1 ? (
+    return this.props.orders.length > 1 ? ( //if the user has orders
       <div>
         <h4>Here are the eggs you purchased!</h4>
         {this.props.orders.map(function(currentOrder) {
@@ -24,7 +25,11 @@ class OrderHistory extends Component {
         })}
       </div>
     ) : (
-      <h4> You have no past orders! Shop now! </h4>
+      //if they don't, link them to the products page
+      <div>
+        <h4> You have no past orders! </h4>
+        <Link to="/products">Shop Now</Link>
+      </div>
     )
   }
 }

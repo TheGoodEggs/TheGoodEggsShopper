@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 
 const CheckoutForm = props => {
   let cartItem = JSON.parse(localStorage.getItem('cart'))

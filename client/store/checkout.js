@@ -29,7 +29,6 @@ const addOrder = function(order) {
  * THUNK CREATORS
  */
 
-//add new user
 export const newOrder = function(value) {
   return async function(dispatch) {
     const {data} = await axios.post('/api/orders', value)

@@ -7,12 +7,9 @@ const CartContainer = ({products, quantity, clear}) => (
   <Cart products={products} quantity={quantity} clear={clear} />
 )
 
-//    onCheckoutClicked = {() => checkout(products)}
-
 const mapState = state => ({
   products: state.products,
   quantity: state.quantity
-  // total: getTotal(state)
 })
 
 const mapDispatch = dispatch => {
