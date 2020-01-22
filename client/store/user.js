@@ -10,21 +10,58 @@ const REMOVE_USER = 'REMOVE_USER'
 const ADD_USER = 'ADD_USER'
 const UPDATE_USER = 'UPDATE_USER'
 const USER_ORDERS = 'USER_ORDERS'
+const SET_FETCHING_STATUS = 'SET_FETCHING_STATUS'
 
 /**
  * INITIAL STATE
  */
 const defaultUser = {
   users: [],
-  currentUser: {},
-  orders: []
+  currentUser: {id: 0},
+  isFetching: false
 }
 
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
+
+const setFetchingStatus = isFetching => ({
+  type: SET_FETCHING_STATUS,
+  isFetching
+})
+
+const getUser = user => ({
+  type: GET_USER,
+  user
+})
+
+export const fetchMe = () => {
+  return async dispatch => {
+    dispatch(setFetchingStatus(true))
+    try {
+      const {data} = await axios.get('/auth/me')
+      dispatch(getUser(data))
+    } catch (error) {
+      console.error(error)
+    } finally {
+      dispatch(setFetchingStatus(false))
+    }
+  }
+}
+
+export const login = credentials => {
+  return async dispatch => {
+    try {
+      const response = await axios.put('/auth/login', credentials)
+      dispatch(getUser(response.data))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
 const removeUser = () => ({type: REMOVE_USER})
+
 const addUser = function(user) {
   return {
     type: ADD_USER,
@@ -49,6 +86,7 @@ const getUserOrders = function(orders) {
  */
 
 //get user
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
@@ -120,11 +158,23 @@ export const getOrderHistory = function(id) {
   }
 }
 
+// export const fetch = () => async dispatch => {
+//   try {
+
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 /**
  * REDUCER
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
+    case SET_FETCHING_STATUS:
+      return {
+        ...state,
+        isFetching: action.isFetching
+      }
     case GET_USER:
       return {...state, currentUser: action.user}
     case REMOVE_USER:
