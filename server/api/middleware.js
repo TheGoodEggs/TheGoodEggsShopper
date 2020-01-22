@@ -1,7 +1,6 @@
 //checks if admin
 const isAdmin = (req, res, next) => {
   try {
-    console.log(req.user)
     if (req.user) {
       if (req.user.admin) next()
       console.log('Only admin access')

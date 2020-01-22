@@ -6,11 +6,9 @@ import AllProducts from './products'
 class wishlist extends React.Component {
   componentDidMount() {
     // need to put the user state
-    console.log(this.props.user.id)
     this.props.getWishlist({id: this.props.user.id})
   }
   render() {
-    console.log('THIS.PROPS =>', this.props)
     return (
       <div>
         {this.props.wishlist.map(product => {

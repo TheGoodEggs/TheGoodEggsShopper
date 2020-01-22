@@ -13,14 +13,7 @@ import OrderHistory from './orderHistory'
 // const {firstName, lastName, email, address, phone} = props
 
 class UserHome extends Component {
-  // flipAbout(event) {
-  //   event.preventDefault()
-  //   this.setState({...this.state, about: !this.state.about})
-  // }
-  //if about clicked, render about stuff, else, render null
-
   render() {
-    console.log('HERE>>', this.props)
     return (
       <div>
         <h3>Welcome, {this.props.firstName}!</h3>
@@ -55,10 +48,3 @@ const mapState = state => {
 }
 
 export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- //  */
-// UserHome.propTypes = {
-//   email: PropTypes.string
-// }

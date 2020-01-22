@@ -109,10 +109,10 @@ export const logout = () => async dispatch => {
 }
 
 //get user's order history
-export const getOrderHistory = function(user) {
+export const getOrderHistory = function(id) {
   return async function(dispatch) {
     try {
-      const {data} = await axios.get(`/api/users/${user.id}/orders`)
+      const {data} = await axios.get(`/api/users/${id}/orders`)
       dispatch(getUserOrders(data))
     } catch (error) {
       console.error(error)
@@ -132,7 +132,6 @@ export default function(state = defaultUser, action) {
     case ADD_USER:
       return {...state, users: [...state.users, action.users]}
     case USER_ORDERS:
-      console.log(action.receivedOrders)
       return {...state, orders: [...state.orders, action.receivedOrders]}
     default:
       return state

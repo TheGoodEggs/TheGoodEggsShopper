@@ -40,7 +40,7 @@ export const singleProductThunk = productId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/products/${productId}`)
     // if (user) {
-    //   const wishlist = await axios.get(`./api/users/${user}/wishlist`)
+    //   const wishlist = await axios.get(`/api/users/${user}/wishlist`)
     //   let wishlistMap = {}
     //   wishlist.data.forEach(element => {
     //     if (!wishlistMap[element.id]) wishlistMap[element.id] = true

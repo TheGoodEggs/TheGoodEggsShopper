@@ -40,7 +40,7 @@ export const removefromCart = product => ({
 
 export const addToCartThunk = productId => {
   return async dispatch => {
-    const {data} = await axios.get(`./api/products/${productId}`)
+    const {data} = await axios.get(`/api/products/${productId}`)
     dispatch(addToCart(data))
   }
 }

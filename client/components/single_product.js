@@ -6,9 +6,6 @@ export default class SingleProduct extends Component {
   }
 
   render() {
-    console.log('this dot props', this.props)
-    console.log('TYPE OF', typeof this.props.productId)
-    console.log('state', this.state)
     const product = this.props.product
 
     return (
