@@ -13,8 +13,6 @@ class wishlist extends React.Component {
     return this.props.wishlist.wishlistMap.size >= 1 ? (
       <div>
         {Object.entries(this.props.wishlist.wishlistMap).map(product => {
-          console.log(product[0])
-
           if (product[0] !== 'size') {
             const {name, price, description, image, id} = product[1]
             return (
