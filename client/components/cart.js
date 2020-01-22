@@ -48,7 +48,9 @@ const Cart = ({products, clear}) => {
       </table>
     </div>
   ) : (
-    <p>You have 0 items in your cart!</p>
+    <div className="emptyCartMsg">
+      <h5>You have 0 items in your cart!</h5>
+    </div>
   )
 
   return (
