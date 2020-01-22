@@ -53,7 +53,7 @@ class Checkout extends React.Component {
       email: this.state.email,
       phone: this.state.phoneNumber,
       address: this.state.shippingAddress,
-      userId: this.props.user.currentuser.id,
+      userId: this.props.user.id,
       purchasedTotal: purchaseTotal
     })
     history.push('/thankyou')
@@ -80,7 +80,7 @@ class Checkout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user.currentUser
   }
 }
 
