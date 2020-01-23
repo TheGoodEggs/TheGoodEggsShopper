@@ -7,6 +7,13 @@ a {
   color: black;
 }
 
+a:hover {
+  cursor: pointer;
+}
+button:hover {
+  cursor: pointer;
+}
+
 label {
   display: block;
 }

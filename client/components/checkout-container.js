@@ -4,6 +4,7 @@ import CheckoutForm from './checkout-form-component'
 import {me} from '../store/user'
 import {newOrder} from '../store/checkout'
 import history from '../history'
+import {clearCart} from '../store/cart'
 
 class Checkout extends React.Component {
   constructor() {
@@ -56,6 +57,7 @@ class Checkout extends React.Component {
       userId: this.props.user.id,
       purchasedTotal: purchaseTotal
     })
+    this.props.clear()
     history.push('/thankyou')
   }
 
@@ -87,7 +89,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     findUser: () => dispatch(me()),
-    addOrder: value => dispatch(newOrder(value))
+    addOrder: value => dispatch(newOrder(value)),
+    clear: () => dispatch(clearCart())
   }
 }
 

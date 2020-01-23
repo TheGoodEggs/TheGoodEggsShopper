@@ -71,6 +71,7 @@ export default function(state = cartState, action) {
     }
     case CLEAR_CART:
       localStorage.removeItem('cart')
+      state = []
       history.push('/cart')
       return state
     default:
