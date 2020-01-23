@@ -36,7 +36,7 @@ export const removeWishlist = userInfo => {
     )
     const wishlistMap = userInfo.wishlist
     delete wishlistMap[userInfo.productId]
-    dispatch(gotWishlist(wishlistMap))
+    dispatch(getWishlist(userInfo.userId))
   }
 }
 
