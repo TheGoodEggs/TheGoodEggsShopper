@@ -9,7 +9,7 @@ class OrderHistory extends Component {
   }
 
   render() {
-    return this.props.orders.length > 1 ? (
+    return this.props.orders.length > 0 ? (
       <div className="orderhistory">
         <p>Eggs you've purchased:</p>
         {this.props.orders.map(function(currentOrder) {
