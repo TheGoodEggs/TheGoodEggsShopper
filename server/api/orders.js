@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const {User, Order, OrderProducts, Wishlist, Product} = require('../db/models')
-const isAdmin = require('./middleware')
+const {isAdmin, isUserOrAdmin} = require('./middleware')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const orders = await Order.findAll()
     res.json(orders)
@@ -12,7 +12,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', isUserOrAdmin, async (req, res, next) => {
   try {
     const addedOrder = await Order.create(req.body)
     const returnObj = {
