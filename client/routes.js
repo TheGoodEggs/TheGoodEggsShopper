@@ -14,7 +14,6 @@ import {
   ThankYou
 } from './components'
 import {me, fetchMe} from './store'
-import {getWishList} from './store/wishlist'
 import registerContainer from './components/register'
 
 /**
@@ -79,9 +78,6 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(fetchMe())
-    },
-    getWishList() {
-      dispatch(getWishList())
     }
   }
 }

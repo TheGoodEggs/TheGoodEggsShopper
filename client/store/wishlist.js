@@ -12,32 +12,35 @@ const gotWishlist = wishlistMap => {
 export const getWishlist = user => {
   return async dispatch => {
     const {data} = await axios.get(`./api/users/${user}/wishlist`)
-    let map = {size: 0}
+    let map = {}
     data.forEach(element => {
       map[element.id] = element
-      map.size++
     })
     dispatch(gotWishlist(map))
   }
 }
 
-export const addWishlist = user => {
+export const addWishlist = userInfo => {
   return async dispatch => {
-    await axios.post(`/api/users/${user.id}/wishlist`, {
-      productId: user.productId
+    await axios.post(`/api/users/${userInfo.userId}/wishlist`, {
+      productId: userInfo.productId
     })
-    dispatch(getWishlist(user.id))
+    dispatch(getWishlist(userInfo.userId))
   }
 }
 
-export const removeWishlist = user => {
+export const removeWishlist = userInfo => {
   return async dispatch => {
-    await axios.delete(`./api/users/${user.id}/wishlist/${user.productId}`)
-    dispatch(getWishlist(user.id))
+    await axios.delete(
+      `./api/users/${userInfo.userId}/wishlist/${userInfo.productId}`
+    )
+    const wishlistMap = userInfo.wishlist
+    delete wishlistMap[userInfo.productId]
+    dispatch(gotWishlist(wishlistMap))
   }
 }
 
-export default (state = {wishlistMap: {size: 0}}, action) => {
+export default (state = {wishlistMap: {}}, action) => {
   switch (action.type) {
     case GOT_WISHLIST:
       return {...state, wishlistMap: action.wishlist}

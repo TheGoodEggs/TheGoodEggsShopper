@@ -1,91 +1,95 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {formatMoney} from '../utils'
-import wishlist from '../store/wishlist'
+import {addToCartThunk} from '../store/cart'
+import AddToCartComponent from './addToCart_Component'
+import {addWishlist, removeWishlist} from '../store/wishlist'
 import {connect} from 'react-redux'
+import WishListButton from './wishList_Component'
 
 class AllProducts extends React.Component {
   constructor() {
     super()
     this.state = {
-      count: 1
+      quantity: 1
     }
     this.increment = this.increment.bind(this)
     this.decrement = this.decrement.bind(this)
+    this.cartHandler = this.cartHandler.bind(this)
   }
 
   increment() {
-    if (this.state.count < this.props.item.stock) {
+    if (this.state.quantity < this.props.item.stock) {
       this.setState(previousState => ({
-        count: previousState.count + 1
+        quantity: previousState.quantity + 1
       }))
     }
   }
   decrement() {
-    if (this.state.count >= 1) {
+    if (this.state.quantity >= 1) {
       this.setState(previousState => ({
-        count: previousState.count - 1
+        quantity: previousState.quantity - 1
       }))
     }
   }
 
+  cartHandler() {
+    this.props.cartHandler(this.props.item.id, this.state.quantity)
+    this.setState({quantity: 1})
+  }
+
   render() {
+    const decrement = this.decrement
+    const increment = this.increment
+    const quantity = this.state.quantity
+
+    const userId = this.props.user.userId
+
+    const wishlist = this.props.wishlistMap
+    const addToWishList = this.props.addWishlist
+    const removeFromWishList = this.props.removeWishlist
+
+    const itemId = this.props.item.id
+    const itemImage = this.props.item.image
+    const itemOrigin = this.props.item.origin
+    const itemPrice = this.props.item.price
+    const itemName = this.props.item.name
+
+    const cartHandler = this.cartHandler
+
     return (
       <div className="allProductsInnerDiv">
-        <Link to={`/products/${this.props.item.id}`}>
-          <img src={this.props.item.image} />
-          <h3>{this.props.item.name}</h3>
+        <Link to={`/products/${itemId}`}>
+          <img src={itemImage} />
+          <h3>{itemName}</h3>
         </Link>
-        <h4>Origin: {this.props.item.origin}</h4>
-        <p>{formatMoney(Number(this.props.item.price))}</p>
+        <h4>Origin: {itemOrigin}</h4>
+        <p>{formatMoney(Number(itemPrice))}</p>
         <div className="buttonDiv">
-          <button type="button" onClick={this.decrement}>
-            <strong> - </strong>
-          </button>
-
-          <button type="button">{this.state.count}</button>
-
-          <button type="button" onClick={this.increment}>
-            <strong> + </strong>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              this.props.cartHandler(this.props.item.id, this.state.count)
-              this.setState({count: 1})
+          <AddToCartComponent
+            handler={{
+              decrement,
+              increment,
+              quantity,
+              itemId,
+              cartHandler
             }}
-          >
-            <i className="fa fa-shopping-cart" />
-          </button>
-
-          {!this.props.user.userId ? (
-            <div />
-          ) : !this.props.wishlist.wishlistMap[this.props.item.id] ? (
-            <button
-              type="button"
-              onClick={() =>
-                this.props.wishlistHandler.add({
-                  id: this.props.user.userId,
-                  productId: this.props.item.id
-                })
-              }
-            >
-              <i className="fa fa-heart-o" />
-            </button>
+          />
+          {!userId ? (
+            <React.Fragment />
+          ) : !wishlist[itemId] ? (
+            <WishListButton
+              ids={{productId: itemId, userId}}
+              handler={addToWishList}
+              filledHeart="false"
+            />
           ) : (
-            <button
-              type="button"
-              onClick={() =>
-                this.props.wishlistHandler.remove({
-                  id: this.props.user.userId,
-                  productId: this.props.item.id
-                })
-              }
-            >
-              {' '}
-              <i className="fa fa-heart" />{' '}
-            </button>
+            <WishListButton
+              ids={{productId: itemId, userId}}
+              handler={removeFromWishList}
+              filledHeart="true"
+              wishlist={wishlist}
+            />
           )}
         </div>
       </div>
@@ -95,8 +99,22 @@ class AllProducts extends React.Component {
 
 const mapState = state => {
   return {
-    wishlist: state.wishlist
+    wishlistMap: state.wishlist.wishlistMap
   }
 }
 
-export default connect(mapState)(AllProducts)
+const mapDispatch = dispatch => {
+  return {
+    cartHandler: (itemId, quantity) => {
+      dispatch(addToCartThunk(itemId, quantity))
+    },
+    addWishlist(user) {
+      dispatch(addWishlist(user))
+    },
+    removeWishlist(user) {
+      dispatch(removeWishlist(user))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(AllProducts)

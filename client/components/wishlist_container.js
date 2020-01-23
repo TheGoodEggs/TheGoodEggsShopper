@@ -5,25 +5,28 @@ import AllWishlist from './wishlist'
 
 class wishlist extends React.Component {
   componentDidMount() {
-    if (this.props.user.currentUser.id) {
-      this.props.getWishlist(this.props.user.currentUser.id)
+    const currentUserId = this.props.currentUser.id
+    if (currentUserId) {
+      this.props.getWishlist(currentUserId)
     }
   }
   render() {
-    return this.props.wishlist.wishlistMap.size >= 1 ? (
+    const wishlistMap = this.props.wishlistMap
+    const removeFromWishList = this.props.removeFromWishlist
+    const userId = this.props.currentUser.id
+    return wishlistMap ? (
       <div className="allWishOutDiv">
-        {Object.entries(this.props.wishlist.wishlistMap).map(product => {
-          if (product[0] !== 'size') {
-            const {name, price, description, image, id} = product[1]
-            return (
-              <AllWishlist
-                key={id}
-                item={{name, price, description, image, wishlist: true, id}}
-                wishlistHandler={{remove: this.props.removeWishlist}}
-                user={{userId: this.props.user.currentUser.id}}
-              />
-            )
-          }
+        {Object.entries(wishlistMap).map(product => {
+          const {name, price, description, image, id} = product[1]
+          return (
+            <AllWishlist
+              key={id}
+              item={{name, price, description, image, id}}
+              wishlistHandler={removeFromWishList}
+              user={{userId}}
+              wishlist={wishlistMap}
+            />
+          )
         })}
       </div>
     ) : (
@@ -36,8 +39,8 @@ class wishlist extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    wishlist: state.wishlist,
-    user: state.user
+    wishlistMap: state.wishlist.wishlistMap,
+    currentUser: state.user.currentUser
   }
 }
 
@@ -46,7 +49,7 @@ const mapDispatchToProps = dispatch => {
     getWishlist: userId => {
       dispatch(getWishlist(userId))
     },
-    removeWishlist(userId) {
+    removeFromWishlist(userId) {
       dispatch(removeWishlist(userId))
     }
   }
