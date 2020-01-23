@@ -1,43 +1,32 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {formatMoney} from '../utils'
+import WishListButton from './wishList_Component'
 
 class AllWishlist extends React.Component {
   render() {
+    const removeFromWishList = this.props.wishlistHandler
+    const userId = this.props.user.userId
+    const productId = this.props.item.id
+    const productImage = this.props.item.image
+    const productName = this.props.item.name
+    const productPrice = this.props.item.price
+    const wishlist = this.props.wishlistMap
     return (
       <div className="allWishInnerDiv">
-        <Link to={`/products/${this.props.item.id}`}>
-          <img src={this.props.item.image} />
-          <h3>{this.props.item.name}</h3>
+        <Link to={`/products/${productId}`}>
+          <img src={productImage} />
+          <h3>{productName}</h3>
         </Link>
-        {/* <h4>{this.props.item.origin}</h4> */}
-        <p>{formatMoney(Number(this.props.item.price))}</p>
-        {!this.props.item.wishlist ? (
-          <button
-            type="button"
-            onClick={() =>
-              this.props.wishlistHandler.add({
-                id: this.props.user.userId,
-                productId: this.props.item.id
-              })
-            }
-          >
-            <i className="fa fa-heart-o" />
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() =>
-              this.props.wishlistHandler.remove({
-                id: this.props.user.userId,
-                productId: this.props.item.id
-              })
-            }
-          >
-            {' '}
-            <i className="fa fa-heart" />{' '}
-          </button>
-        )}
+        <p>{formatMoney(Number(productPrice))}</p>
+        {
+          <WishListButton
+            ids={{userId, productId}}
+            handler={removeFromWishList}
+            filledHeart="false"
+            wishlist={wishlist}
+          />
+        }
       </div>
     )
   }
