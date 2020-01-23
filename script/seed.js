@@ -28,7 +28,7 @@ async function seed() {
   const Products = await Promise.all([
     Product.create({
       name: 'egg',
-      price: 1023,
+      price: 1,
       description: 'The most eggy of them all.',
       image:
         'https://image.cnbcfm.com/api/v1/image/105676135-1547460191113instagramegg.jpg?v=1547460443',
@@ -38,17 +38,17 @@ async function seed() {
     }),
     Product.create({
       name: 'Humpty Dumpty',
-      price: 23499,
+      price: 300,
       description: 'Rest assured, this eggs has not had a great fall. ',
       image:
         'https://www.thevintagenews.com/wp-content/uploads/2018/02/humpty_dumpty.jpg',
-      stock: 5,
+      stock: 50,
       origin: 'UK',
       categoryId: 1
     }),
     Product.create({
       name: 'Gudetama',
-      price: 99,
+      price: 150,
       description: 'The laziest egg there is.',
       image:
         'https://media.gamestop.com/i/gamestop/10167246/Gudetama-Sitting-Plush-9.5-Inches',
@@ -58,7 +58,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Kinder Surprise',
-      price: 500,
+      price: 5,
       description: 'A surprise that might kill you.',
       image:
         'https://www.sltrib.com/resizer/uO0oB5WHrEjnutm_xg5hmZJfUpQ=/970x0/filters:quality(100)/arc-anglerfish-arc2-prod-sltrib.s3.amazonaws.com/public/LNXMEMHN2BEFHE53JTBS4FRFCE.jpg',
@@ -68,11 +68,11 @@ async function seed() {
     }),
     Product.create({
       name: 'Unicorn Egg',
-      price: 500000,
+      price: 5000,
       description: 'A Unicorn of an egg...',
       image:
         'https://images-na.ssl-images-amazon.com/images/I/71oc0j4kfgL._SL1500_.jpg',
-      stock: 3,
+      stock: 30,
       origin: 'Equestria',
       categoryId: 1
     }),
@@ -88,7 +88,7 @@ async function seed() {
     }),
     Product.create({
       name: "Yoshi's Egg",
-      price: 133700,
+      price: 1330,
       description: 'Even you can be mario.',
       image:
         'https://images-na.ssl-images-amazon.com/images/I/61JYYrlrQ1L._AC_SL1500_.jpg',
@@ -98,7 +98,7 @@ async function seed() {
     }),
     Product.create({
       name: 'Gold Faberge Egg',
-      price: 999900,
+      price: 9999,
       description: 'Will provide for my grandkids college fund',
       image:
         'https://www.religiousitalianart.com/wp-content/uploads/2019/01/faberge-egg-gold.jpg',
