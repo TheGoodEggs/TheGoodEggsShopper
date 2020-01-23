@@ -24,7 +24,7 @@ class wishlist extends React.Component {
               item={{name, price, description, image, id}}
               wishlistHandler={removeFromWishList}
               user={{userId}}
-              wishlist={wishlistMap}
+              wishlistMap={wishlistMap}
             />
           )
         })}
