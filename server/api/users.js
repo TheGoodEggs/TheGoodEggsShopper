@@ -5,7 +5,7 @@ module.exports = router
 
 //mounted on /users
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
@@ -19,7 +19,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isUserOrAdmin, async (req, res, next) => {
   try {
     const singleUser = await User.findOne({
       where: {
